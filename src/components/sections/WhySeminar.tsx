@@ -18,11 +18,14 @@ const WhySeminar: React.FC = () => {
           {/* Left Image - Rotated 14 degrees */}
           <div className="order-2 lg:order-1 flex justify-center">
             <div className="relative">
-              <img 
-                src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=500" 
-                alt="אימון אישי בהרמת משקולות"
-                className="w-80 h-96 object-cover rounded-lg shadow-2xl transform rotate-[14deg]"
-              />
+              <picture>
+                <source srcSet="/images/david-instructing.webp" type="image/webp" />
+                <img 
+                  src="/images/david-instructing.webp"
+                  alt="דוד ליטבינוב מדריך ומסביר טכניקה"
+                  className="w-80 h-96 object-cover rounded-lg shadow-2xl transform rotate-[14deg]"
+                />
+              </picture>
             </div>
           </div>
 
@@ -68,11 +71,14 @@ const WhySeminar: React.FC = () => {
           {/* Right Image - Rotated -14 degrees */}
           <div className="order-3 lg:order-3 flex justify-center">
             <div className="relative">
-              <img 
-                src="https://images.unsplash.com/photo-1574680096145-d05b474e2155?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=500" 
-                alt="קבוצת אימון הרמת משקולות"
-                className="w-80 h-96 object-cover rounded-lg shadow-2xl transform rotate-[-14deg]"
-              />
+              <picture>
+                <source srcSet="/images/workshop.webp" type="image/webp" />
+                <img 
+                  src="/images/workshop.webp"
+                  alt="סדנת הרמת משקולות בפעולה"
+                  className="w-80 h-96 object-cover rounded-lg shadow-2xl transform rotate-[-14deg]"
+                />
+              </picture>
             </div>
           </div>
         </div>

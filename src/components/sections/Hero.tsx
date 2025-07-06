@@ -46,13 +46,13 @@ const Hero: React.FC = () => {
 
           {/* Image - Right Side */}
           <div className="flex-1 lg:flex-[2.2] relative">
-            <div className="aspect-square lg:aspect-auto lg:h-[500px] lg:w-[400px] rounded-2xl overflow-hidden bg-gray-800">
+            <div className="aspect-square lg:aspect-auto lg:h-[514px] lg:w-[364px] rounded-2xl overflow-hidden">
               <picture>
                 <source srcSet="/images/david-hero.webp" type="image/webp" />
                 <img 
                   src="/images/david-hero.webp"
                   alt="דוד ליטבינוב מסביר טכניקה על הלוח"
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-contain"
                   loading="lazy"
                 />
               </picture>

@@ -4,9 +4,28 @@ const GymOwners: React.FC = () => {
   return (
     <section className="bg-bg-primary text-text-primary py-16 lg:py-24 relative overflow-hidden">
       <div className="mx-auto px-4 max-w-[1200px]">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* Content Side */}
-          <div className="order-2 lg:order-1">
+        <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-center" dir="ltr">
+          {/* Image Side - Left */}
+          <div className="flex-shrink-0">
+            <div className="aspect-square lg:aspect-auto lg:h-[500px] lg:w-[400px] rounded-2xl overflow-hidden bg-gray-800 relative">
+              <picture>
+                <source srcSet="/images/david-teaching.webp" type="image/webp" />
+                <img 
+                  src="/images/david-teaching.webp"
+                  alt="דוד ליטבינוב מלמד ומדריך באימון קבוצתי"
+                  className="w-full h-full object-cover"
+                />
+              </picture>
+              
+              {/* Overlay Badge */}
+              <div className="absolute top-6 right-6 bg-cta text-bg-primary px-4 py-2 rounded-lg font-rubik font-bold text-lg shadow-lg">
+                שותפות רווחית
+              </div>
+            </div>
+          </div>
+
+          {/* Content Side - Right */}
+          <div className="flex-1 text-center lg:text-right" dir="rtl">
             {/* Title */}
             <h2 className="font-rubik text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
               יש לכם חדר כושר או סטודיו?
@@ -87,22 +106,6 @@ const GymOwners: React.FC = () => {
             <button className="bg-cta hover:bg-yellow-600 text-bg-primary font-rubik font-medium px-8 py-4 rounded-lg text-lg transition-colors">
               למידע נוסף
             </button>
-          </div>
-
-          {/* Image Side */}
-          <div className="order-1 lg:order-2">
-            <div className="relative">
-              <img 
-                src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400" 
-                alt="סטודיו כושר עם אימון קבוצתי"
-                className="w-full h-96 object-cover rounded-2xl shadow-2xl"
-              />
-              
-              {/* Overlay Badge */}
-              <div className="absolute top-6 right-6 bg-cta text-bg-primary px-4 py-2 rounded-lg font-rubik font-bold text-lg shadow-lg">
-                שותפות רווחית
-              </div>
-            </div>
           </div>
         </div>
       </div>
