@@ -4,17 +4,17 @@ const AboutDavid: React.FC = () => {
   return (
     <section id="about" 
              className="bg-bg-primary text-text-primary py-16 lg:py-24">
-      <div className="mx-auto px-4 max-w-[1200px]">
+      <div className="container-mobile">
         <div className="flex flex-col lg:flex-row gap-12 lg:gap-16 items-center" dir="ltr">
           {/* Image Side - Left */}
-          <div className="flex-1 order-2 lg:order-1">
-            <div className="aspect-square lg:aspect-auto lg:h-[500px] lg:w-[400px] rounded-2xl overflow-hidden ">
+          <div className="flex-1 order-2 lg:order-1 flex justify-center items-center">
+            <div className="retina-image-container transform hover:scale-105 transition-all duration-300">
               <picture>
-                <source srcSet="/images/david-sitting.webp" type="image/webp" />
+                <source srcSet="/images/david-whiteboard.webp" type="image/webp" />
                 <img 
-                  src="/images/david-sitting.webp"
-                  alt="דוד ליטבינוב יושב עם ידיים שלובות"
-                  className="w-full h-full object-cover"
+                  src="/images/david-whiteboard.webp"
+                  alt="דוד ליטבינוב מלמד על לוח לבן"
+                  className="retina-image"
                 />
               </picture>
             </div>
@@ -23,14 +23,14 @@ const AboutDavid: React.FC = () => {
           {/* Content Side - Right */}
           <div className="flex-1 text-center lg:text-right order-1 lg:order-2" dir="rtl">
             {/* Title */}
-            <h2 className="typo-section-title mb-8 leading-tight text-content">
+            <h2 className="typo-section-title mb-6 sm:mb-8 leading-tight text-content">
               מי אני ולמה אלפי מתאמנים
               <br />
               סומכים עליי?
             </h2>
 
             {/* Description */}
-            <div className="typo-body-regular-wrapped text-gray-300 mb-8 leading-relaxed space-y-4">
+            <div className="typo-body-regular-wrapped text-gray-300 mb-6 sm:mb-8 leading-relaxed space-y-4">
               <p>
                 שלום, אני דוד ליטבינוב - לא עוד מאמן רגיל. אני ספורטאי אולימפי 
                 שייצג את ישראל בטוקיו, שיאן ישראל ב-50+ קטגוריות, ומדליסט ארד 
@@ -43,7 +43,7 @@ const AboutDavid: React.FC = () => {
             </div>
 
             {/* Credentials with checkmarks */}
-            <div className="space-y-4 mb-8">
+            <div className="space-y-3 sm:space-y-4 mb-6 sm:mb-8">
               <div className="flex items-center justify-center lg:justify-start gap-3">
                 <div className="flex-shrink-0 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
                   <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
@@ -79,9 +79,13 @@ const AboutDavid: React.FC = () => {
             </div>
 
             {/* CTA Button */}
-            <button className="bg-cta hover:bg-yellow-600 text-bg-primary typo-button-regular px-8 py-4 rounded-lg transition-colors">
-              לסיפור המלא שלי
-            </button>
+            <div className="flex justify-center lg:justify-start">
+              <button className="bg-cta hover:bg-yellow-600 text-bg-primary 
+                                typo-button-regular btn-mobile-optimized
+                                transition-all duration-300 transform hover:scale-105 shadow-lg">
+                לסיפור המלא שלי
+              </button>
+            </div>
           </div>
         </div>
       </div>
