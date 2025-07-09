@@ -39,7 +39,7 @@ const Hero: React.FC = () => {
             {/* Main Content - Centered */}
             <div className="text-center" dir="rtl">
               {/* Main Headline */}
-              <h1 className="typo-page-title leading-tight mb-6 lg:mb-8 text-white">
+              <h1 className="typo-page-title mb-6 lg:mb-8 text-white">
                 הסדנה <span className="underline decoration-cta decoration-4 
                                       underline-offset-4">היחידה</span> בארץ 
                 שתלמד

@@ -56,7 +56,7 @@ code {
   
   /* Ensure text doesn't get too small on mobile */
   .typo-body-small {
-    font-size: 0.9rem !important;
+    font-size: 0.9rem;
   }
   
   /* Better mobile spacing for sections */

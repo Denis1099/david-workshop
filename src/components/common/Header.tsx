@@ -19,10 +19,15 @@ const Header: React.FC = () => {
           {/* Logo/Brand - Right side in RTL */}
           <Link 
             to="/" 
-            className="text-navbar-text hover:text-cta transition-colors font-rubik text-xl sm:text-2xl font-bold"
+            className="flex items-center hover:opacity-80 transition-opacity"
             onClick={closeMobileMenu}
           >
-            RELIFT
+            <img 
+              src="/images/logo.webp"
+              alt="RELIFT - דוד ליטבינוב"
+              className="h-8 sm:h-10 w-auto"
+              loading="eager"
+            />
           </Link>
 
           {/* Navigation Menu - Center - Hidden on Mobile */}

@@ -38,7 +38,7 @@ const UpcomingSeminars: React.FC = () => {
       <div className="mx-auto px-4 max-w-[1200px]">
         {/* Title */}
         <div className="text-center mb-16">
-          <h2 className="typo-section-title text-gray-900 mb-6 text-content">
+          <h2 className="typo-section-title mb-6 text-content">
             סדנאות קרובות
           </h2>
           <p className="typo-body-large-wrapped text-gray-600 max-w-3xl 

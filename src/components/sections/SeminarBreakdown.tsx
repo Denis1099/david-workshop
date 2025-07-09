@@ -61,7 +61,7 @@ const SeminarBreakdown: React.FC = () => {
                     <p className="text-cta font-semibold mb-4">
                       {step.duration}
                     </p>
-                    <p className="typo-body-regular text-gray-300 leading-relaxed">
+                    <p className="typo-body-regular text-gray-300">
                       {step.description}
                     </p>
                   </div>
@@ -91,7 +91,7 @@ const SeminarBreakdown: React.FC = () => {
                           <p className="text-cta font-semibold mb-6">
                             {step.duration}
                           </p>
-                          <p className="typo-body-regular text-wrap-30 text-gray-300 leading-relaxed">
+                          <p className="typo-body-regular text-wrap-30 text-gray-300">
                             {step.description}
                           </p>
                         </div>
@@ -108,14 +108,14 @@ const SeminarBreakdown: React.FC = () => {
                           <p className="text-cta font-semibold mb-6">
                             {step.duration}
                           </p>
-                          <p className="typo-body-regular text-wrap-30 text-gray-300 leading-relaxed">
+                          <p className="typo-body-regular text-wrap-30 text-gray-300">
                             {step.description}
                           </p>
                         </div>
                       </div>
                       
-                      {/* Image Section */}
-                      <div className="flex-1 flex justify-start">
+                                             {/* Image Section */}
+                        <div className="flex-1 flex justify-start">
                         <div className="w-64 h-64 xl:w-80 xl:h-80 flex items-center justify-center transform hover:scale-105 transition-all duration-300">
                           <img 
                             src={step.image} 

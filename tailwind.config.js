@@ -30,7 +30,7 @@ module.exports = {
           '@apply text-3xl md:text-4xl lg:text-5xl font-rubik font-extrabold': {},
         },
         '.typo-section-title': {
-          '@apply text-2xl md:text-3xl lg:text-4xl font-rubik font-bold': {},
+          '@apply text-3xl md:text-3xl lg:text-4xl font-rubik font-bold': {},
         },
         '.typo-body-large': {
           '@apply text-xl md:text-2xl font-heebo': {},
