@@ -30,114 +30,102 @@ const SeminarBreakdown: React.FC = () => {
 
   return (
     <section className="bg-bg-primary text-text-primary py-16 lg:py-24">
-      <div className="container-mobile">
+      <div className="mx-auto px-4 max-w-[1200px]">
         {/* Title */}
-        <div className="text-center mb-12 sm:mb-16">
+        <div className="text-center mb-12 lg:mb-16">
           <h2 className="typo-section-title mb-6 text-content">
             4 שעות שישנו לך את הגישה לווייטליפטינג
           </h2>
         </div>
 
         {/* Steps */}
-        <div className="max-w-6xl mx-auto space-y-12 sm:space-y-16">
+        <div className="max-w-5xl mx-auto space-y-8 lg:space-y-16">
           {steps.map((step, index) => {
-            const imageOnLeft = index % 2 === 0; // Steps 1,3 have image on left on desktop
+            const imageOnLeft = index % 2 === 0; // Steps 1,3 have image on left
             
             return (
-              <div key={index} className="w-full">
-                {/* Mobile Layout - Always stacked */}
-                <div className="lg:hidden">
-                  <div className="flex flex-col items-center text-center space-y-6">
-                    {/* Image */}
-                    <div className="w-full max-w-sm">
-                      <div className="aspect-square flex items-center justify-center transform hover:scale-105 transition-all duration-300">
-                        <img 
-                          src={step.image} 
-                          alt={`${step.title} illustration`}
-                          className="w-full h-full object-contain rounded-lg"
-                          loading="lazy"
-                        />
-                      </div>
+              <div key={index} className="flex items-center justify-center">
+                {/* Mobile Layout - Always Stacked */}
+                <div className="lg:hidden w-full max-w-md mx-auto">
+                  <div className="text-center mb-6">
+                    <div className="w-48 h-48 sm:w-56 sm:h-56 mx-auto mb-6 flex items-center justify-center transform hover:scale-105 transition-all duration-300">
+                      <img 
+                        src={step.image} 
+                        alt={`${step.title} illustration`}
+                        className="max-w-full max-h-full object-contain rounded-lg"
+                      />
                     </div>
-                    
-                    {/* Text Content */}
-                    <div className="text-center">
-                      <h3 className="typo-body-large font-bold mb-3 text-text-primary">
-                        {step.title}
-                      </h3>
-                      <p className="text-cta font-semibold mb-4 typo-body-regular">
-                        {step.duration}
-                      </p>
-                      <p className="typo-body-regular text-gray-300 leading-relaxed max-w-md mx-auto">
-                        {step.description}
-                      </p>
-                    </div>
+                    <h3 className="typo-body-large-wrapped font-bold mb-3 text-text-primary">
+                      {step.title}
+                    </h3>
+                    <p className="text-cta font-semibold mb-4">
+                      {step.duration}
+                    </p>
+                    <p className="typo-body-regular text-gray-300 leading-relaxed">
+                      {step.description}
+                    </p>
                   </div>
                 </div>
 
                 {/* Desktop Layout - Alternating */}
-                <div className="hidden lg:flex items-center justify-center">
-                  <div className="flex items-center gap-16 xl:gap-32 w-full max-w-5xl">
-                    {imageOnLeft ? (
-                      <>
-                        {/* Image Section - Left */}
-                        <div className="flex-1 flex justify-end">
-                          <div className="w-80 h-80 flex items-center justify-center transform hover:scale-105 transition-all duration-300">
-                            <img 
-                              src={step.image} 
-                              alt={`${step.title} illustration`}
-                              className="max-w-full max-h-full object-contain"
-                              loading="lazy"
-                            />
-                          </div>
+                <div className="hidden lg:flex items-center gap-16 xl:gap-24 w-full">
+                  {imageOnLeft ? (
+                    <>
+                      {/* Image Section */}
+                      <div className="flex-1 flex justify-end">
+                        <div className="w-64 h-64 xl:w-80 xl:h-80 flex items-center justify-center transform hover:scale-105 transition-all duration-300">
+                          <img 
+                            src={step.image} 
+                            alt={`${step.title} illustration`}
+                            className="max-w-full max-h-full object-contain"
+                          />
                         </div>
-                        
-                        {/* Text Section - Right */}
-                        <div className="flex-1">
-                          <div className="max-w-md text-right">
-                            <h3 className="typo-body-large font-bold mb-3 text-text-primary">
-                              {step.title}
-                            </h3>
-                            <p className="text-cta font-semibold mb-6 typo-body-regular">
-                              {step.duration}
-                            </p>
-                            <p className="typo-body-regular text-gray-300 leading-relaxed">
-                              {step.description}
-                            </p>
-                          </div>
+                      </div>
+                      
+                      {/* Text Section */}
+                      <div className="flex-1">
+                        <div className="max-w-md text-right">
+                          <h3 className="typo-body-large-wrapped font-bold mb-3 text-text-primary">
+                            {step.title}
+                          </h3>
+                          <p className="text-cta font-semibold mb-6">
+                            {step.duration}
+                          </p>
+                          <p className="typo-body-regular text-wrap-30 text-gray-300 leading-relaxed">
+                            {step.description}
+                          </p>
                         </div>
-                      </>
-                    ) : (
-                      <>
-                        {/* Text Section - Left */}
-                        <div className="flex-1 flex justify-end">
-                          <div className="max-w-md text-right">
-                            <h3 className="typo-body-large font-bold mb-3 text-text-primary">
-                              {step.title}
-                            </h3>
-                            <p className="text-cta font-semibold mb-6 typo-body-regular">
-                              {step.duration}
-                            </p>
-                            <p className="typo-body-regular text-gray-300 leading-relaxed">
-                              {step.description}
-                            </p>
-                          </div>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      {/* Text Section */}
+                      <div className="flex-1 flex justify-end">
+                        <div className="max-w-md text-right">
+                          <h3 className="typo-body-large-wrapped font-bold mb-3 text-text-primary">
+                            {step.title}
+                          </h3>
+                          <p className="text-cta font-semibold mb-6">
+                            {step.duration}
+                          </p>
+                          <p className="typo-body-regular text-wrap-30 text-gray-300 leading-relaxed">
+                            {step.description}
+                          </p>
                         </div>
-                        
-                        {/* Image Section - Right */}
-                        <div className="flex-1 flex justify-start">
-                          <div className="w-80 h-80 flex items-center justify-center transform hover:scale-105 transition-all duration-300">
-                            <img 
-                              src={step.image} 
-                              alt={`${step.title} illustration`}
-                              className="max-w-full max-h-full object-contain"
-                              loading="lazy"
-                            />
-                          </div>
+                      </div>
+                      
+                      {/* Image Section */}
+                      <div className="flex-1 flex justify-start">
+                        <div className="w-64 h-64 xl:w-80 xl:h-80 flex items-center justify-center transform hover:scale-105 transition-all duration-300">
+                          <img 
+                            src={step.image} 
+                            alt={`${step.title} illustration`}
+                            className="max-w-full max-h-full object-contain"
+                          />
                         </div>
-                      </>
-                    )}
-                  </div>
+                      </div>
+                    </>
+                  )}
                 </div>
               </div>
             );

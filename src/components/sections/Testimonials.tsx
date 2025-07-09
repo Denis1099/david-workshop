@@ -38,55 +38,38 @@ const Testimonials: React.FC = () => {
 
   return (
     <section id="testimonials" className="bg-bg-primary text-text-primary py-16 lg:py-24">
-      <div className="container-mobile">
+      <div className="mx-auto px-2 sm:px-4 max-w-[1200px]">
         {/* Title */}
-        <div className="text-center mb-12 sm:mb-16">
+        <div className="text-center mb-12 lg:mb-16">
           <h2 className="typo-section-title mb-6 text-content">
             מה אומרים המשתתפים?
           </h2>
         </div>
 
         {/* Videos Grid */}
-        <div className="mobile-grid-3 mb-8 sm:mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8 mb-8 lg:mb-12">
           {videoTestimonials.map((video, index) => {
-            // Mobile logic: show first 2, then expand to 4
-            // Tablet logic: show first 4, then expand to 6  
-            // Desktop logic: show first 3, then expand to all 6
-            let showOnMobile, showOnTablet, showOnDesktop;
-            
-            if (showAllVideos) {
-              showOnMobile = index < 4;
-              showOnTablet = index < 6;
-              showOnDesktop = true;
-            } else {
-              showOnMobile = index < 2;
-              showOnTablet = index < 4;
-              showOnDesktop = index < 3;
-            }
+            // Desktop logic: show first 3, then all 6
+            // Mobile logic: show first 2, then first 4
+            const showOnDesktop = showAllVideos || index < 3;
+            const showOnMobile = showAllVideos ? index < 4 : index < 2;
             
             return (
               <div 
                 key={video.id} 
                 className={`
                   ${showOnMobile ? 'block' : 'hidden'} 
-                  ${showOnTablet ? 'sm:block' : 'sm:hidden'}
                   ${showOnDesktop ? 'lg:block' : 'lg:hidden'}
                 `}
               >
-                <div className="relative transform hover:scale-105 transition-all duration-300 rounded-lg overflow-hidden shadow-lg bg-gray-800">
-                  <div className="aspect-video w-full h-64 sm:h-72 md:h-80 lg:h-64">
-                    <iframe
-                      title={video.title}
-                      src={video.src}
-                      className="w-full h-full"
-                      frameBorder="0"
-                      allowFullScreen
-                      loading="lazy"
-                    />
-                  </div>
-                  
-                  {/* Optional overlay for better mobile interaction */}
-                  <div className="absolute inset-0 bg-transparent hover:bg-black hover:bg-opacity-10 transition-all duration-300 pointer-events-none"></div>
+                <div className="relative transform hover:scale-105 transition-all duration-300">
+                  <iframe
+                    title={video.title}
+                    src={video.src}
+                    className="w-full h-[500px] sm:h-[520px] md:h-[400px] lg:h-[500px] xl:h-[520px] rounded-lg"
+                    frameBorder="0"
+                    allowFullScreen
+                  />
                 </div>
               </div>
             );
@@ -95,30 +78,16 @@ const Testimonials: React.FC = () => {
 
         {/* Load More Button */}
         {!showAllVideos && (
-          <div className="flex justify-center">
+          <div className="text-center">
             <button
               onClick={() => setShowAllVideos(true)}
-              className="bg-white hover:bg-gray-100 text-bg-primary 
-                         btn-mobile-optimized
-                         typo-button-cta
-                         transform hover:scale-105 shadow-lg"
+              className="bg-cta hover:bg-yellow-600 text-bg-primary 
+                         px-6 py-3 sm:px-8 sm:py-3 rounded-lg font-medium
+                         transition-all duration-300
+                         typo-body-regular-wrapped
+                         transform hover:scale-105"
             >
-              הצג עוד
-            </button>
-          </div>
-        )}
-
-        {/* Show Less Button (only when all videos are shown) */}
-        {showAllVideos && (
-          <div className="text-center mt-6">
-            <button
-              onClick={() => setShowAllVideos(false)}
-              className="bg-transparent border-2 border-text-primary 
-                         text-text-primary hover:bg-text-primary 
-                         hover:text-bg-primary btn-mobile-optimized
-                         typo-button-regular transition-all duration-300"
-            >
-              הצג פחות
+              טען עוד סרטונים
             </button>
           </div>
         )}

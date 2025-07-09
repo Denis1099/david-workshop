@@ -10,14 +10,12 @@ import './App.css';
 function App() {
   return (
     <Router>
-      <div className="App min-h-screen bg-bg-primary prevent-horizontal-scroll smooth-scroll">
+      <div className="App min-h-screen bg-bg-primary">
         <Header />
-        <main role="main">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/faq" element={<FAQ />} />
-          </Routes>
-        </main>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/faq" element={<FAQ />} />
+        </Routes>
         <Footer />
         <FloatingWhatsApp />
       </div>

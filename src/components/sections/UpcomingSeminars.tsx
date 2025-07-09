@@ -35,9 +35,9 @@ const UpcomingSeminars: React.FC = () => {
     <section id="upcoming" 
              className="bg-gradient-to-b from-gray-100 to-white py-16 
                        lg:py-24">
-      <div className="container-mobile">
+      <div className="mx-auto px-4 max-w-[1200px]">
         {/* Title */}
-        <div className="text-center mb-12 sm:mb-16">
+        <div className="text-center mb-16">
           <h2 className="typo-section-title text-gray-900 mb-6 text-content">
             סדנאות קרובות
           </h2>
@@ -48,18 +48,19 @@ const UpcomingSeminars: React.FC = () => {
         </div>
 
         {/* Seminars Grid */}
-        <div className="mobile-grid-3 max-w-6xl mx-auto mb-8 sm:mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 
+                        gap-8 max-w-6xl mx-auto mb-12">
           {seminars.map((seminar) => (
             <div key={seminar.id} 
                  className="bg-white rounded-2xl shadow-2xl overflow-hidden 
                            transform hover:scale-105 transition-all 
-                           duration-300 max-w-sm mx-auto w-full">
+                           duration-300">
               {/* Card Header with Gradient */}
-              <div className="bg-gradient-to-br from-bg-primary to-blue-800 p-4 sm:p-6 
+              <div className="bg-gradient-to-br from-bg-primary to-blue-800 p-6 
                               text-center">
-                <div className="w-12 h-12 sm:w-16 sm:h-16 bg-white rounded-full flex 
-                               items-center justify-center mx-auto mb-3 sm:mb-4">
-                  <svg className="w-6 h-6 sm:w-8 sm:h-8 text-bg-primary" fill="currentColor" 
+                <div className="w-16 h-16 bg-white rounded-full flex 
+                               items-center justify-center mx-auto mb-4">
+                  <svg className="w-8 h-8 text-bg-primary" fill="currentColor" 
                        viewBox="0 0 20 20">
                     <path fillRule="evenodd" 
                           d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 
@@ -67,21 +68,21 @@ const UpcomingSeminars: React.FC = () => {
                           clipRule="evenodd" />
                   </svg>
                 </div>
-                <h3 className="typo-body-large font-bold text-white mb-2">
+                <h3 className="typo-body-large-wrapped font-bold text-white mb-2">
                   {seminar.location}
                 </h3>
-                <p className="typo-body-regular text-white font-medium">
+                <p className="typo-body-regular-wrapped text-white font-medium">
                   {seminar.city}
                 </p>
               </div>
 
               {/* Card Body */}
-              <div className="p-4 sm:p-6 text-center">
+              <div className="p-6 text-center">
                 {/* Date */}
-                <div className="mb-4 sm:mb-6">
+                <div className="mb-6">
                   <div className="flex items-center justify-center gap-2 
                                  mb-2">
-                    <svg className="w-4 h-4 sm:w-5 sm:h-5 text-bg-primary" fill="currentColor" 
+                    <svg className="w-5 h-5 text-bg-primary" fill="currentColor" 
                          viewBox="0 0 20 20">
                       <path fillRule="evenodd" 
                             d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 
@@ -90,20 +91,20 @@ const UpcomingSeminars: React.FC = () => {
                                2h8a1 1 0 100-2H6z" 
                             clipRule="evenodd" />
                     </svg>
-                    <span className="text-xs sm:text-sm text-gray-600 font-medium">
+                    <span className="text-sm text-gray-600 font-medium">
                       תאריך
                     </span>
                   </div>
-                  <p className="typo-body-large text-gray-800 font-bold">
+                  <p className="typo-body-large-wrapped text-gray-800 font-bold">
                     {seminar.date}
                   </p>
                 </div>
 
                 {/* Time */}
-                <div className="mb-4 sm:mb-6">
+                <div className="mb-6">
                   <div className="flex items-center justify-center gap-2 
                                  mb-2">
-                    <svg className="w-4 h-4 sm:w-5 sm:h-5 text-bg-primary" fill="currentColor" 
+                    <svg className="w-5 h-5 text-bg-primary" fill="currentColor" 
                          viewBox="0 0 20 20">
                       <path fillRule="evenodd" 
                             d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 
@@ -111,39 +112,39 @@ const UpcomingSeminars: React.FC = () => {
                                0 101.415-1.415L11 9.586V6z" 
                             clipRule="evenodd" />
                     </svg>
-                    <span className="text-xs sm:text-sm text-gray-600 font-medium">
+                    <span className="text-sm text-gray-600 font-medium">
                       שעה
                     </span>
                   </div>
-                  <p className="typo-body-large text-gray-800 font-bold">
+                  <p className="typo-body-large-wrapped text-gray-800 font-bold">
                     {seminar.time}
                   </p>
                 </div>
 
                 {/* Spots Left */}
-                <div className="mb-4 sm:mb-6">
-                  <div className="bg-green-100 text-green-800 px-2 py-1 sm:px-3 sm:py-1 
-                                 rounded-full text-xs sm:text-sm font-medium 
+                <div className="mb-6">
+                  <div className="bg-green-100 text-green-800 px-3 py-1 
+                                 rounded-full text-sm font-medium 
                                  inline-block">
                     נותרו {seminar.spotsLeft} מקומות
                   </div>
                 </div>
 
                 {/* Price */}
-                <div className="mb-4 sm:mb-6">
-                  <div className="text-xl sm:text-2xl md:text-3xl font-rubik font-bold 
+                <div className="mb-6">
+                  <div className="text-2xl md:text-3xl font-rubik font-bold 
                                  text-bg-primary">
                     {seminar.price}
                   </div>
-                  <p className="typo-body-small text-gray-500">
+                  <p className="typo-body-small-wrapped text-gray-500">
                     למשתתף
                   </p>
                 </div>
 
                 {/* CTA Button */}
                 <button className="w-full bg-bg-primary hover:bg-blue-800 
-                                  text-white typo-button-cta btn-mobile-optimized
-                                  transition-all duration-300 transform hover:scale-105">
+                                  text-white typo-button-cta py-3 rounded-lg 
+                                  transition-colors">
                   לדף הסדנה
                 </button>
               </div>
@@ -152,10 +153,10 @@ const UpcomingSeminars: React.FC = () => {
         </div>
 
         {/* Bottom CTA */}
-        <div className="flex justify-center">
+        <div className="text-center">
           <button className="bg-cta hover:bg-yellow-600 text-bg-primary 
-                            typo-button-cta btn-mobile-optimized
-                            transition-all duration-300 transform hover:scale-105 shadow-lg">
+                            typo-button-cta px-8 py-4 rounded-lg 
+                            transition-all duration-300 transform hover:scale-105">
             לצפייה בכל הסדנאות
           </button>
         </div>

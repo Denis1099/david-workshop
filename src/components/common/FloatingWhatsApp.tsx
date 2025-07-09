@@ -16,11 +16,10 @@ const FloatingWhatsApp: React.FC<FloatingWhatsAppProps> = ({
   return (
     <button
       onClick={handleWhatsAppClick}
-      className="fixed left-4 bottom-4 sm:left-6 sm:bottom-6 z-50 
-                bg-green-500 hover:bg-green-600 active:bg-green-700
-                text-white rounded-full shadow-lg hover:shadow-xl 
-                transition-all duration-300 transform hover:scale-110 
-                active:scale-95 touch-target
+      className="fixed right-4 bottom-4 sm:right-6 sm:bottom-6 z-50 
+                bg-green-500 hover:bg-green-600 text-white 
+                p-3 sm:p-4 rounded-full shadow-lg hover:shadow-xl 
+                transition-all duration-300 transform hover:scale-110
                 w-12 h-12 sm:w-16 sm:h-16
                 flex items-center justify-center"
       aria-label="צור קשר בוואטסאפ"
