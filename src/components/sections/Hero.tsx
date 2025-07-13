@@ -40,21 +40,18 @@ const Hero: React.FC = () => {
             <div className="text-center" dir="rtl">
               {/* Main Headline */}
               <h1 className="typo-page-title mb-6 lg:mb-8 text-white">
-                הסדנה <span className="underline decoration-cta decoration-4 
-                                      underline-offset-4">היחידה</span> בארץ 
-                שתלמד
+                <span className="underline decoration-cta decoration-4 
+                                underline-offset-4">להפסיק</span> לנחש בוויטליפטינג
                 <br />
-                אותך לשלוט בהרמת משקולות
-                <br />
-                בביטחון מלא ובטכניקה נכונה.
+                ולהתחיל להרים עם ביטחון.
               </h1>
 
               {/* Subheadline */}
               <p className="typo-body-large-wrapped text-gray-100 mb-12 sm:mb-16 lg:mb-20 
                             leading-relaxed max-w-3xl mx-auto">
-                שלום, אני דוד ליטבינוב - ספורטאי אולימפי ושיאן ישראל
+                סדנה אחת שתפרק לך את התנועה לגורמים, תראה לך איפה אתה נתקע,
                 <br />
-                אני מזמין אותך לסדנה שלי שתשנה לך את הטכניקה לתמיד.
+                ותלמד אותך איך להרגיש את המוט נכון – בכל הנפה.
               </p>
 
               {/* CTA Buttons */}

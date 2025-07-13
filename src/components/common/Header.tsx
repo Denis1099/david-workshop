@@ -23,7 +23,7 @@ const Header: React.FC = () => {
             onClick={closeMobileMenu}
           >
             <img 
-              src="/images/logo.webp"
+              src="/images/logo.svg"
               alt="RELIFT - דוד ליטבינוב"
               className="h-8 sm:h-10 w-auto"
               loading="eager"
