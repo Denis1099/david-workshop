@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Seminar } from '../types/seminar';
 import SeminarsService from '../services/seminarsService';
 import SeminarGrid from '../components/seminars/SeminarGrid';
+import { generateSeminarSlug } from '../utils/seminarUtils';
 
 const Seminars: React.FC = () => {
   const navigate = useNavigate();
@@ -35,7 +36,8 @@ const Seminars: React.FC = () => {
   };
 
   const handleDetailsClick = (seminar: Seminar) => {
-    navigate(`/seminars/${seminar.id}`);
+    const slug = generateSeminarSlug(seminar);
+    navigate(`/seminars/${slug}`);
   };
 
   const handleRegisterClick = (seminar: Seminar) => {

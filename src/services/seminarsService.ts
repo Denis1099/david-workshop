@@ -1,6 +1,7 @@
 import { supabase, hasSupabaseConfig } from '../lib/supabase';
 import { Seminar, SeminarFilters } from '../types/seminar';
 import { mockUpcomingSeminars, mockPastSeminars, simulateApiDelay } from '../data/mockSeminars';
+import { parseSeminarSlug } from '../utils/seminarUtils';
 
 export class SeminarsService {
   /**
@@ -130,6 +131,52 @@ export class SeminarsService {
       return data;
     } catch (error) {
       console.error('Service error fetching seminar by ID:', error);
+      throw error instanceof Error ? error : new Error('שגיאה בטעינת פרטי הסדנה');
+    }
+  }
+
+  /**
+   * Get a single seminar by URL slug
+   * Format: city-date (e.g., "tel-aviv-2025-08-15")
+   */
+  static async getSeminarBySlug(slug: string): Promise<Seminar | null> {
+    // Parse the slug to extract city and date
+    const parsed = parseSeminarSlug(slug);
+    if (!parsed) {
+      return null; // Invalid slug format
+    }
+
+    const { city, date } = parsed;
+
+    // Use mock data if Supabase is not configured
+    if (!hasSupabaseConfig) {
+      await simulateApiDelay(300);
+      const allSeminars = [...mockUpcomingSeminars, ...mockPastSeminars];
+      return allSeminars.find(seminar => 
+        seminar.city === city && seminar.date === date
+      ) || null;
+    }
+
+    try {
+      const { data, error } = await supabase
+        .from('seminars')
+        .select('*')
+        .eq('city', city)
+        .eq('date', date)
+        .single();
+
+      if (error) {
+        if (error.code === 'PGRST116') {
+          // No rows returned
+          return null;
+        }
+        console.error('Error fetching seminar by slug:', error);
+        throw new Error('שגיאה בטעינת פרטי הסדנה');
+      }
+
+      return data;
+    } catch (error) {
+      console.error('Service error fetching seminar by slug:', error);
       throw error instanceof Error ? error : new Error('שגיאה בטעינת פרטי הסדנה');
     }
   }

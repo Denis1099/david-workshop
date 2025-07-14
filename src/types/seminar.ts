@@ -13,6 +13,7 @@ export interface Seminar {
   status: SeminarStatus;
   special_notes?: string;
   created_at?: string;
+  slug?: string; // URL-friendly slug generated from city and date
 }
 
 export type SeminarStatus = 'active' | 'draft' | 'sold_out' | 'cancelled' | 'completed';
@@ -51,5 +52,6 @@ export interface SeminarService {
   fetchUpcomingSeminars: (filters?: SeminarFilters) => Promise<Seminar[]>;
   fetchPastSeminars: (limit?: number) => Promise<Seminar[]>;
   getSeminarById: (id: number) => Promise<Seminar | null>;
+  getSeminarBySlug: (slug: string) => Promise<Seminar | null>;
   getHomepageSeminars: (limit?: number) => Promise<Seminar[]>;
 }

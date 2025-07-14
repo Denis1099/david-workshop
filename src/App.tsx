@@ -7,6 +7,7 @@ import Home from './pages/Home';
 import FAQ from './pages/FAQ';
 import AboutDavid from './pages/AboutDavid';
 import Seminars from './pages/Seminars';
+import SeminarSalesPage from './pages/SeminarSalesPage';
 import AdminRoute from './components/admin/AdminRoute';
 import AdminLogin from './pages/admin/AdminLogin';
 import AdminDashboard from './pages/admin/AdminDashboard';
@@ -69,6 +70,14 @@ function App() {
             <>
               <Header />
               <Seminars />
+              <Footer />
+              <FloatingWhatsApp />
+            </>
+          } />
+          <Route path="/seminars/:slug" element={
+            <>
+              <Header />
+              <SeminarSalesPage />
               <Footer />
               <FloatingWhatsApp />
             </>
