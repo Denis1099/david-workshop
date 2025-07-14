@@ -17,7 +17,8 @@ const SeminarCard: React.FC<SeminarCardProps> = ({
   };
 
   const formatTime = (timeStart: string, timeEnd: string) => {
-    return `${timeStart}-${timeEnd}`;
+    const cleanTime = (time: string) => time.split(':').slice(0, 2).join(':');
+    return `${cleanTime(timeStart)}-${cleanTime(timeEnd)}`;
   };
 
   const formatPrice = (price: number) => {

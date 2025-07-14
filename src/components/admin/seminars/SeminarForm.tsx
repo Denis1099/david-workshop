@@ -25,7 +25,7 @@ const SeminarForm: React.FC<SeminarFormProps> = ({
     max_participants: seminar?.max_participants || 15,
     current_participants: seminar?.current_participants || 0,
     price: seminar?.price || 480,
-    status: seminar?.status || 'draft',
+    status: seminar?.status || 'active',
     special_notes: seminar?.special_notes || ''
   });
 

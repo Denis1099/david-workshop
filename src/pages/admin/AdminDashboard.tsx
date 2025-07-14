@@ -4,6 +4,7 @@ import StatsCard from '../../components/admin/dashboard/StatsCard';
 import ActivityFeed from '../../components/admin/dashboard/ActivityFeed';
 import { AdminService } from '../../services/adminService';
 import { DashboardStats, ActivityItem } from '../../types/admin';
+import { hasSupabaseConfig } from '../../lib/supabase';
 
 const AdminDashboard: React.FC = () => {
   const [stats, setStats] = useState<DashboardStats | null>(null);
@@ -47,6 +48,30 @@ const AdminDashboard: React.FC = () => {
           </h1>
           <div className="typo-body-regular text-gray-600">
             עדכון אחרון: {new Date().toLocaleTimeString('he-IL')}
+          </div>
+        </div>
+
+        {/* Connection Status Banner */}
+        <div className={`rounded-lg p-4 border ${
+          hasSupabaseConfig 
+            ? 'bg-green-50 border-green-200 text-green-800' 
+            : 'bg-yellow-50 border-yellow-200 text-yellow-800'
+        }`}>
+          <div className="flex items-center gap-3">
+            <div className={`w-3 h-3 rounded-full ${
+              hasSupabaseConfig ? 'bg-green-500' : 'bg-yellow-500'
+            }`}></div>
+            <div>
+              <div className="font-medium">
+                {hasSupabaseConfig ? '🔗 מחובר לבסיס נתונים' : '📦 מצב נתונים מדמה'}
+              </div>
+              <div className="text-sm">
+                {hasSupabaseConfig 
+                  ? 'המערכת מחוברת לבסיס הנתונים. כל הנתונים שמוצגים הם אמיתיים.'
+                  : 'המערכת משתמשת בנתונים מדמים. סדנאות שנוצרות לא יישמרו ולא יוצגו לציבור.'
+                }
+              </div>
+            </div>
           </div>
         </div>
 

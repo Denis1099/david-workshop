@@ -141,14 +141,18 @@ export class SeminarsService {
   static async getHomepageSeminars(limit: number = 3): Promise<Seminar[]> {
     // Use mock data if Supabase is not configured
     if (!hasSupabaseConfig) {
+      console.log('📦 SeminarsService: Using mock data for homepage seminars (Supabase not configured)');
       await simulateApiDelay(400);
-      return mockUpcomingSeminars
+      const result = mockUpcomingSeminars
         .filter(seminar => seminar.status === 'active')
         .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
         .slice(0, limit);
+      console.log(`📦 SeminarsService: Returning ${result.length} mock seminars for homepage`);
+      return result;
     }
 
     try {
+      console.log('🔗 SeminarsService: Fetching homepage seminars from Supabase');
       const { data, error } = await supabase
         .from('seminars')
         .select('*')
@@ -159,13 +163,14 @@ export class SeminarsService {
         .limit(limit);
 
       if (error) {
-        console.error('Error fetching homepage seminars:', error);
+        console.error('❌ SeminarsService: Error fetching homepage seminars from Supabase:', error);
         throw new Error('שגיאה בטעינת הסדנאות');
       }
 
+      console.log(`✅ SeminarsService: Successfully fetched ${data?.length || 0} seminars from Supabase`);
       return data || [];
     } catch (error) {
-      console.error('Service error fetching homepage seminars:', error);
+      console.error('❌ SeminarsService: Service error fetching homepage seminars:', error);
       // Return empty array for homepage to fail gracefully
       return [];
     }
@@ -349,16 +354,21 @@ export class SeminarsService {
    */
   static async createSeminar(seminar: Omit<Seminar, 'id' | 'created_at'>): Promise<Seminar> {
     if (!hasSupabaseConfig) {
+      console.log('📦 SeminarsService: Creating seminar with mock data (Supabase not configured)');
+      console.log('📦 Note: This seminar will not persist and will not appear on public pages');
       await simulateApiDelay(600);
       const newSeminar: Seminar = {
         id: Math.max(...mockUpcomingSeminars.map(s => s.id)) + 1,
         ...seminar,
         created_at: new Date().toISOString()
       };
+      console.log(`📦 SeminarsService: Created mock seminar with ID ${newSeminar.id} (status: ${newSeminar.status})`);
       return newSeminar;
     }
 
     try {
+      console.log('🔗 SeminarsService: Creating seminar in Supabase');
+      console.log(`🔗 Seminar details: ${seminar.city}, ${seminar.date}, status: ${seminar.status}`);
       const { data, error } = await supabase
         .from('seminars')
         .insert({
@@ -369,13 +379,19 @@ export class SeminarsService {
         .single();
 
       if (error) {
-        console.error('Error creating seminar:', error);
+        console.error('❌ SeminarsService: Error creating seminar in Supabase:', error);
         throw new Error('שגיאה ביצירת סדנה');
       }
 
+      console.log(`✅ SeminarsService: Successfully created seminar with ID ${data.id} (status: ${data.status})`);
+      if (data.status === 'active') {
+        console.log('✅ This seminar will appear on public pages immediately');
+      } else {
+        console.log(`⚠️ This seminar has status '${data.status}' and will not appear on public pages`);
+      }
       return data;
     } catch (error) {
-      console.error('Service error creating seminar:', error);
+      console.error('❌ SeminarsService: Service error creating seminar:', error);
       throw error instanceof Error ? error : new Error('שגיאה ביצירת סדנה');
     }
   }
