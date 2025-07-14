@@ -82,15 +82,45 @@ const Testimonials: React.FC = () => {
             <button
               onClick={() => setShowAllVideos(true)}
               className="bg-cta hover:bg-yellow-600 text-bg-primary 
-                         px-6 py-3 sm:px-8 sm:py-3 rounded-lg font-medium
+                         px-6 py-3 sm:px-8 sm:py-3 rounded-lg
                          transition-all duration-300
-                         typo-body-regular-wrapped
+                         typo-button-cta
                          transform hover:scale-105"
             >
               טען עוד סרטונים
             </button>
           </div>
         )}
+
+        {/* Testimonial Images */}
+        <div className="mt-12 lg:mt-16">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-6 lg:gap-8">
+            <div className="relative transform hover:scale-105 transition-all duration-300">
+              <img
+                src="/images/testimonials/testimonial1.webp"
+                alt="המלצה 1"
+                className="w-full h-auto rounded-lg shadow-lg"
+                loading="lazy"
+              />
+            </div>
+            <div className="relative transform hover:scale-105 transition-all duration-300">
+              <img
+                src="/images/testimonials/testimonial2.webp"
+                alt="המלצה 2"
+                className="w-full h-auto rounded-lg shadow-lg"
+                loading="lazy"
+              />
+            </div>
+            <div className="relative transform hover:scale-105 transition-all duration-300 col-span-2 md:col-span-1 max-w-sm mx-auto">
+              <img
+                src="/images/testimonials/testimonial3.webp"
+                alt="המלצה 3"
+                className="w-full h-auto rounded-lg shadow-lg"
+                loading="lazy"
+              />
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );

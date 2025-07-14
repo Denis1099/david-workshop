@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const UpcomingSeminars: React.FC = () => {
   const seminars = [
@@ -142,11 +143,14 @@ const UpcomingSeminars: React.FC = () => {
                 </div>
 
                 {/* CTA Button */}
-                <button className="w-full bg-bg-primary hover:bg-blue-800 
-                                  text-white typo-button-cta py-3 rounded-lg 
-                                  transition-colors">
+                <Link 
+                  to="/seminars"
+                  className="w-full bg-cta hover:bg-yellow-600 
+                            text-bg-primary typo-button-cta py-3 rounded-lg 
+                            transition-colors block text-center"
+                >
                   לדף הסדנה
-                </button>
+                </Link>
               </div>
             </div>
           ))}
@@ -154,11 +158,15 @@ const UpcomingSeminars: React.FC = () => {
 
         {/* Bottom CTA */}
         <div className="text-center">
-          <button className="bg-cta hover:bg-yellow-600 text-bg-primary 
-                            typo-button-cta px-8 py-4 rounded-lg 
-                            transition-all duration-300 transform hover:scale-105">
+          <Link 
+            to="/seminars"
+            className="bg-cta hover:bg-yellow-600 text-bg-primary 
+                      typo-button-cta px-8 py-4 rounded-lg 
+                      transition-all duration-300 transform hover:scale-105 
+                      inline-block"
+          >
             לצפייה בכל הסדנאות
-          </button>
+          </Link>
         </div>
       </div>
     </section>

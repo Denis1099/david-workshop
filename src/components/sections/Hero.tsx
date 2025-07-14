@@ -87,18 +87,10 @@ const Hero: React.FC = () => {
                 {/* Individual Avatar Images Stacked */}
                 <div className="flex items-center justify-center">
                   <img 
-                    src="/images/avatars/avatar1.webp"
-                    alt="משתתף בסדנה 1"
+                    src="/images/avatars/avatar4.webp"
+                    alt="משתתף בסדנה 4"
                     className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border-2 
-                              border-white shadow-md relative z-30 ml-[-16px] sm:ml-[-24px]
-                              transform hover:scale-110 transition-all duration-300"
-                    loading="lazy"
-                  />
-                  <img 
-                    src="/images/avatars/avatar2.webp"
-                    alt="משתתף בסדנה 2"
-                    className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border-2 
-                              border-white shadow-md relative z-20 ml-[-16px] sm:ml-[-24px]
+                              border-white shadow-md relative z-0 ml-[-8px] sm:ml-[-12px]
                               transform hover:scale-110 transition-all duration-300"
                     loading="lazy"
                   />
@@ -106,15 +98,31 @@ const Hero: React.FC = () => {
                     src="/images/avatars/avatar3.webp"
                     alt="משתתף בסדנה 3"
                     className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border-2 
-                              border-white shadow-md relative z-10 ml-[-16px] sm:ml-[-24px]
+                              border-white shadow-md relative z-10 ml-[-8px] sm:ml-[-12px]
                               transform hover:scale-110 transition-all duration-300"
                     loading="lazy"
                   />
                   <img 
-                    src="/images/avatars/avatar4.webp"
-                    alt="משתתף בסדנה 4"
+                    src="/images/avatars/avatar2.webp"
+                    alt="משתתף בסדנה 2"
                     className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border-2 
-                              border-white shadow-md relative z-0 ml-[-16px] sm:ml-[-24px]
+                              border-white shadow-md relative z-20 ml-[-8px] sm:ml-[-12px]
+                              transform hover:scale-110 transition-all duration-300"
+                    loading="lazy"
+                  />
+                  <img 
+                    src="/images/avatars/avatar1.webp"
+                    alt="משתתף בסדנה 1"
+                    className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border-2 
+                              border-white shadow-md relative z-30 ml-[-8px] sm:ml-[-12px]
+                              transform hover:scale-110 transition-all duration-300"
+                    loading="lazy"
+                  />
+                  <img 
+                    src="/images/avatars/avatar0.webp"
+                    alt="משתתף בסדנה"
+                    className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border-2 
+                              border-white shadow-md relative z-40 ml-[-8px] sm:ml-[-12px]
                               transform hover:scale-110 transition-all duration-300"
                     loading="lazy"
                   />

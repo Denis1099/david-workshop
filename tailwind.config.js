@@ -99,6 +99,18 @@ module.exports = {
         '.text-content': {
           '@apply text-wrap-75': {},
         },
+        
+        // RTL Select Dropdown Arrow Fix
+        '.select-rtl': {
+          'direction': 'rtl',
+          'background-image': 'url("data:image/svg+xml,%3csvg xmlns=\'http://www.w3.org/2000/svg\' fill=\'none\' viewBox=\'0 0 20 20\'%3e%3cpath stroke=\'%236b7280\' stroke-linecap=\'round\' stroke-linejoin=\'round\' stroke-width=\'1.5\' d=\'m6 8 4 4 4-4\'/%3e%3c/svg%3e")',
+          'background-position': 'left 0.5rem center',
+          'background-repeat': 'no-repeat',
+          'background-size': '1.5em 1.5em',
+          'padding-left': '2.5rem',
+          'padding-right': '0.75rem',
+          'appearance': 'none',
+        },
       }
       addUtilities(newUtilities)
     }

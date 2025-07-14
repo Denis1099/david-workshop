@@ -79,12 +79,16 @@ const FAQ: React.FC = () => {
                 <button
                   onClick={() => toggleFAQ(index)}
                   className="w-full px-6 py-6 text-right flex items-center 
-                            justify-between hover:bg-gray-700 
+                            flex-row-reverse justify-between hover:bg-gray-700 
                             transition-colors"
                 >
+                  <h3 className="typo-body-large-wrapped font-bold 
+                                 text-text-primary text-right flex-1">
+                    {faq.question}
+                  </h3>
                   <svg 
                     className={`w-6 h-6 text-cta transition-transform 
-                                duration-300 ${
+                                duration-300 mr-4 ${
                       openIndex === index ? 'rotate-180' : ''
                     }`}
                     fill="none" 
@@ -94,10 +98,6 @@ const FAQ: React.FC = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" 
                           strokeWidth={2} d="M19 9l-7 7-7-7" />
                   </svg>
-                  <h3 className="typo-body-large-wrapped font-bold 
-                                 text-text-primary text-right">
-                    {faq.question}
-                  </h3>
                 </button>
                 
                 {openIndex === index && (

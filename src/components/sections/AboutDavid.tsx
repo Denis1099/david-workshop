@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const AboutDavid: React.FC = () => {
   return (
@@ -42,36 +43,36 @@ const AboutDavid: React.FC = () => {
           </div>
 
           {/* Credentials with checkmarks */}
-          <div className="space-y-4">
-            <div className="flex items-center justify-center gap-3">
+          <div className="space-y-4 flex flex-col items-center">
+            <div className="flex items-center gap-3 max-w-fit">
               <div className="flex-shrink-0 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
                 <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                 </svg>
               </div>
-              <span className="typo-body-regular-wrapped text-text-primary">
+              <span className="typo-body-regular text-text-primary text-center">
                 350+ מתאמנים שהדרכתי ולימדתי עד היום
               </span>
             </div>
 
-            <div className="flex items-center justify-center gap-3">
+            <div className="flex items-center gap-3 max-w-fit">
               <div className="flex-shrink-0 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
                 <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                 </svg>
               </div>
-              <span className="typo-body-regular-wrapped text-text-primary">
+              <span className="typo-body-regular text-text-primary text-center">
                 15+ שנות ניסיון בהוראה ואימון
               </span>
             </div>
 
-            <div className="flex items-center justify-center gap-3">
+            <div className="flex items-center gap-3 max-w-fit">
               <div className="flex-shrink-0 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
                 <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                 </svg>
               </div>
-              <span className="typo-body-regular-wrapped text-text-primary">
+              <span className="typo-body-regular text-text-primary text-center">
                 השיטה היחידה בארץ שמותאמת לכל רמות מרימי המשקולות
               </span>
             </div>
@@ -79,9 +80,9 @@ const AboutDavid: React.FC = () => {
 
           {/* CTA Button */}
           <div className="text-center">
-            <button className="bg-cta hover:bg-yellow-600 text-bg-primary typo-button-regular px-8 py-4 rounded-lg transition-all duration-300 transform hover:scale-105">
+            <Link to="/about-david" className="bg-cta hover:bg-yellow-600 text-bg-primary typo-button-regular px-8 py-4 rounded-lg transition-all duration-300 transform hover:scale-105 inline-block">
               לסיפור המלא שלי
-            </button>
+            </Link>
           </div>
         </div>
 
@@ -160,9 +161,9 @@ const AboutDavid: React.FC = () => {
             </div>
 
             {/* CTA Button */}
-            <button className="bg-cta hover:bg-yellow-600 text-bg-primary typo-button-regular px-8 py-4 rounded-lg transition-all duration-300 transform hover:scale-105">
+            <Link to="/about-david" className="bg-cta hover:bg-yellow-600 text-bg-primary typo-button-regular px-8 py-4 rounded-lg transition-all duration-300 transform hover:scale-105 inline-block">
               לסיפור המלא שלי
-            </button>
+            </Link>
           </div>
         </div>
 
@@ -170,13 +171,13 @@ const AboutDavid: React.FC = () => {
         <div className="mt-16 lg:mt-14 pt-12">
           <div className="text-center" dir="rtl">
             {/* Featured In Text */}
-            <h3 className="typo-body-regular text-gray-400 mb-8">
-              כפי שסוקר ב:
+            <h3 className="typo-body-regular text-gray-400 mb-14">
+            על הקריירה שלי כספורטאי סיקרו ב - 
             </h3>
             
             {/* Logos Row */}
-            <div className="flex flex-wrap justify-center items-center gap-12 lg:gap-16 opacity-85">
-              <div className="h-8 lg:h-10 flex items-center transform hover:scale-110 transition-all duration-300">
+            <div className="flex flex-wrap justify-center items-center gap-12 lg:gap-24 opacity-95">
+              <div className="h-8 lg:h-full flex items-center transform hover:scale-110 transition-all duration-300">
                 <img 
                   src="/images/logos/israelhayom-logo.webp"
                   alt="ישראל היום"
@@ -184,7 +185,7 @@ const AboutDavid: React.FC = () => {
                 />
               </div>
               
-              <div className="h-8 lg:h-10 flex items-center transform hover:scale-110 transition-all duration-300">
+              <div className="h-8 lg:h-full flex items-center transform hover:scale-110 transition-all duration-300">
                 <img 
                   src="/images/logos/ynet-logo.webp"
                   alt="ynet"
@@ -192,7 +193,7 @@ const AboutDavid: React.FC = () => {
                 />
               </div>
               
-              <div className="h-8 lg:h-10 flex items-center transform hover:scale-110 transition-all duration-300">
+              <div className="h-8 lg:h-full flex items-center transform hover:scale-110 transition-all duration-300">
                 <img 
                   src="/images/logos/sport5-logo.webp"
                   alt="Sport 5"
@@ -200,7 +201,7 @@ const AboutDavid: React.FC = () => {
                 />
               </div>
               
-              <div className="h-8 lg:h-10 flex items-center transform hover:scale-110 transition-all duration-300">
+              <div className="h-8 lg:h-full flex items-center transform hover:scale-110 transition-all duration-300">
                 <img 
                   src="/images/logos/sport1-logo.webp"
                   alt="Sport 1"
