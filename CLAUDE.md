@@ -76,11 +76,65 @@ This is a conversion-optimized website for David Litvinov's weightlifting semina
 - Establish credibility through professional design
 - Support Hebrew-speaking Israeli audience
 
-### Future Integration Plans
-The README indicates planned integrations with:
-- Supabase for database and authentication
-- Green Invoice API for payment processing
-- WhatsApp contact system
-- Admin panel for content management
+## Payment System Architecture
+
+### Current State (WhatsApp-Only Flow)
+The payment system is temporarily configured for WhatsApp-only registration flow:
+- **Primary CTA**: WhatsApp button with seminar-specific messages
+- **Message Format**: `"היי דוד, אני רוצה לקבל פרטים על הסדנה {city} בתאריך {date}"`
+- **WhatsApp Number**: `972544901057`
+- **Manual Processing**: All registrations handled through WhatsApp conversation
+
+### Payment Infrastructure (Ready for Restoration)
+Payment components are temporarily disabled but preserved in codebase:
+
+#### **Green Invoice Integration**
+- **Purpose**: Business management & tax-compliant invoicing (NOT payment processing)
+- **API Endpoints**: Creates invoices/receipts for Israeli tax compliance
+- **Edge Functions**: 
+  - `/functions/v1/create-payment` - Creates invoice + payment record
+  - `/functions/v1/create-invoice` - Invoice generation only
+  - `/functions/v1/green-invoice-webhook` - Payment status updates
+- **Environment Variables**: `GREEN_INVOICE_API_KEY`, `GREEN_INVOICE_SECRET`
+- **Status**: Functional but disabled for WhatsApp flow
+
+#### **Payment Processor Requirements (Future)**
+Green Invoice does NOT process credit cards. For payment processing, integrate:
+- **Israeli Options**: Tranzila, Cardcom, Isracard (~2.5-3.5% per transaction)
+- **International Options**: Stripe, PayPal (~2.9% per transaction, limited in Israel)
+
+#### **Recommended Payment Flow (Future)**
+```
+User → Payment Form → Payment Processor → Payment Complete → 
+Auto-Generate Green Invoice → Update Database → Confirmation Email
+```
+
+### Restoration Instructions
+To re-enable payment system:
+1. Uncomment payment imports in `SeminarSalesPage.tsx`
+2. Uncomment payment state and handlers
+3. Restore PaymentButton and PaymentModal components
+4. Add payment processor integration (Tranzila/Stripe)
+5. Configure automatic Green Invoice generation after payment success
+
+### Payment Component Files (Preserved)
+- `src/components/payment/PaymentModal.tsx`
+- `src/components/payment/PaymentButton.tsx`  
+- `src/components/payment/PaymentStatus.tsx`
+- `src/services/greenInvoiceService.ts`
+- `src/types/payment.ts`
+- `supabase/functions/*/` - Edge Functions
+
+### Integration Plans
+Current integrations:
+- ✅ Supabase for database and authentication
+- ✅ Green Invoice API for invoicing (disabled)
+- ✅ WhatsApp contact system
+- ✅ Admin panel for content management
+
+Planned integrations:
+- 🔄 Payment processor (Tranzila/Cardcom/Stripe)
+- 🔄 Automated invoice generation post-payment
+- 🔄 Email confirmation system
 
 When working on this codebase, prioritize RTL compatibility, maintain the established design system, and ensure all new components follow the sections-based architecture pattern.

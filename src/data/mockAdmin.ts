@@ -132,9 +132,9 @@ export const mockNewsletterLeads: NewsletterLead[] = [
 ];
 
 export const mockAdminSettings: AdminSettings = {
-  contact_phone: "050-123-4567",
+  contact_phone: "054-490-1057",
   contact_email: "david@weightlifting-seminars.co.il",
-  whatsapp_link: "https://wa.me/972501234567",
+  whatsapp_link: "https://wa.me/972544901057",
   admin_password: "admin123"
 };
 

@@ -42,7 +42,7 @@ const SeminarBreakdown: React.FC = () => {
         <div className="max-w-5xl mx-auto">
           {steps.map((step, index) => {
             const imageOnLeft = index % 2 === 0; // Steps 1,3 have image on left
-            const isLastStep = index === steps.length - 1;
+            // const isLastStep = index === steps.length - 1;
             
             return (
               <React.Fragment key={index}>

@@ -1,6 +1,10 @@
 import React from 'react';
 
 const GymOwners: React.FC = () => {
+  const handleWhatsAppClick = () => {
+    window.open('https://wa.link/mfzmps', '_blank');
+  };
+  
   return (
     <section id="gym-owners" 
              className="bg-bg-primary text-text-primary py-16 lg:py-24 
@@ -112,7 +116,9 @@ const GymOwners: React.FC = () => {
 
 
             {/* CTA Button */}
-            <button className="bg-cta hover:bg-yellow-600 text-bg-primary 
+            <button 
+              onClick={handleWhatsAppClick}
+              className="bg-cta hover:bg-yellow-600 text-bg-primary 
                               typo-button-cta px-8 py-4 rounded-lg 
                               transition-all duration-300 transform hover:scale-105">
               למידע נוסף

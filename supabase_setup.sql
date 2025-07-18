@@ -13,6 +13,7 @@ CREATE TABLE public.seminars (
     price INTEGER NOT NULL,
     status TEXT CHECK (status IN ('active', 'draft', 'sold_out', 'cancelled', 'completed')) DEFAULT 'draft',
     special_notes TEXT,
+    payment_link TEXT, -- External payment link (Green Invoice or other payment processor)
     created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
@@ -73,16 +74,16 @@ INSERT INTO public.admin_settings (
 );
 
 -- Insert sample seminars data
-INSERT INTO public.seminars (title, city, date, time_start, time_end, venue_name, venue_address, max_participants, current_participants, price, status, special_notes) VALUES
-('', 'תל אביב', '2025-02-15', '10:00', '14:00', 'פיט אנד פאן', 'רחוב הברזל 32, תל אביב', 15, 12, 480, 'active', NULL),
-('', 'חיפה', '2025-02-22', '10:00', '14:00', 'בולדר חיפה', 'רחוב הרצל 45, חיפה', 15, 8, 480, 'active', NULL),
-('', 'ירושלים', '2025-03-01', '10:00', '14:00', 'ג''ים סנטר', 'רחוב יפו 120, ירושלים', 15, 5, 480, 'active', NULL),
-('', 'באר שבע', '2025-03-08', '09:00', '13:00', 'פיטנס פלוס', 'שדרות רגר 8, באר שבע', 15, 15, 480, 'sold_out', NULL),
-('', 'נתניה', '2025-03-15', '10:00', '14:00', 'אולמי כושר נתניה', 'רחוב הרצל 78, נתניה', 15, 0, 480, 'cancelled', 'הסדנה בוטלה בשל נסיבות בלתי צפויות'),
-('', 'אשדוד', '2025-03-22', '10:00', '14:00', 'מכון כושר אשדוד', 'רחוב הנשיא 15, אשדוד', 15, 3, 480, 'active', NULL),
-('', 'רמת גן', '2025-01-15', '10:00', '14:00', 'גיבורי ספורט', 'רחוב ביאליק 25, רמת גן', 15, 15, 450, 'completed', 'סדנה מוצלחת עם משוב מעולה'),
-('', 'פתח תקווה', '2025-01-08', '09:00', '13:00', 'אולמי הספורט פתח תקווה', 'שדרות זאב ז''בוטינסקי 101, פתח תקווה', 15, 14, 450, 'completed', NULL),
-('', 'רחובות', '2024-12-25', '10:00', '14:00', 'פיטנס אריס', 'רחוב הרצל 88, רחובות', 15, 13, 450, 'completed', NULL);
+INSERT INTO public.seminars (title, city, date, time_start, time_end, venue_name, venue_address, max_participants, current_participants, price, status, special_notes, payment_link) VALUES
+('', 'תל אביב', '2025-02-15', '10:00', '14:00', 'פיט אנד פאן', 'רחוב הברזל 32, תל אביב', 15, 12, 480, 'active', NULL, 'https://pages.greeninvoice.co.il/payments/links/1af96424-6067-42f6-88c1-a6c902f042e0'),
+('', 'חיפה', '2025-02-22', '10:00', '14:00', 'בולדר חיפה', 'רחוב הרצל 45, חיפה', 15, 8, 480, 'active', NULL, NULL),
+('', 'ירושלים', '2025-03-01', '10:00', '14:00', 'ג''ים סנטר', 'רחוב יפו 120, ירושלים', 15, 5, 480, 'active', NULL, NULL),
+('', 'באר שבע', '2025-03-08', '09:00', '13:00', 'פיטנס פלוס', 'שדרות רגר 8, באר שבע', 15, 15, 480, 'sold_out', NULL, NULL),
+('', 'נתניה', '2025-03-15', '10:00', '14:00', 'אולמי כושר נתניה', 'רחוב הרצל 78, נתניה', 15, 0, 480, 'cancelled', 'הסדנה בוטלה בשל נסיבות בלתי צפויות', NULL),
+('', 'אשדוד', '2025-03-22', '10:00', '14:00', 'מכון כושר אשדוד', 'רחוב הנשיא 15, אשדוד', 15, 3, 480, 'active', NULL, NULL),
+('', 'רמת גן', '2025-01-15', '10:00', '14:00', 'גיבורי ספורט', 'רחוב ביאליק 25, רמת גן', 15, 15, 450, 'completed', 'סדנה מוצלחת עם משוב מעולה', NULL),
+('', 'פתח תקווה', '2025-01-08', '09:00', '13:00', 'אולמי הספורט פתח תקווה', 'שדרות זאב ז''בוטינסקי 101, פתח תקווה', 15, 14, 450, 'completed', NULL, NULL),
+('', 'רחובות', '2024-12-25', '10:00', '14:00', 'פיטנס אריס', 'רחוב הרצל 88, רחובות', 15, 13, 450, 'completed', NULL, NULL);
 
 -- Insert sample registrations
 INSERT INTO public.registrations (seminar_id, name, email, phone, payment_status, registration_date, notes, amount) VALUES

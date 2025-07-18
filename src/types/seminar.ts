@@ -14,6 +14,12 @@ export interface Seminar {
   special_notes?: string;
   created_at?: string;
   slug?: string; // URL-friendly slug generated from city and date
+  // Payment-related fields
+  payment_enabled?: boolean;
+  payment_deadline?: string; // ISO date string - deadline for payment
+  early_bird_price?: number; // Optional early bird pricing
+  early_bird_deadline?: string; // ISO date string - deadline for early bird pricing
+  payment_link?: string; // External payment link (Green Invoice or other)
 }
 
 export type SeminarStatus = 'active' | 'draft' | 'sold_out' | 'cancelled' | 'completed';

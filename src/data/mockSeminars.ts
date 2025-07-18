@@ -13,7 +13,12 @@ export const mockUpcomingSeminars: Seminar[] = [
     current_participants: 12,
     price: 480,
     status: "active",
-    special_notes: undefined
+    special_notes: undefined,
+    payment_enabled: true,
+    payment_deadline: "2025-02-14",
+    early_bird_price: 420,
+    early_bird_deadline: "2025-02-01",
+    payment_link: "https://pages.greeninvoice.co.il/payments/links/1af96424-6067-42f6-88c1-a6c902f042e0"
   },
   {
     id: 2,
@@ -27,7 +32,11 @@ export const mockUpcomingSeminars: Seminar[] = [
     current_participants: 8,
     price: 480,
     status: "active",
-    special_notes: undefined
+    special_notes: undefined,
+    payment_enabled: true,
+    payment_deadline: "2025-02-21",
+    early_bird_price: 420,
+    early_bird_deadline: "2025-02-08"
   },
   {
     id: 3,

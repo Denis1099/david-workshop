@@ -2,6 +2,7 @@ import { supabase, hasSupabaseConfig } from '../lib/supabase';
 import { Seminar, SeminarFilters } from '../types/seminar';
 import { mockUpcomingSeminars, mockPastSeminars, simulateApiDelay } from '../data/mockSeminars';
 import { parseSeminarSlug } from '../utils/seminarUtils';
+import { PaymentData } from '../types/payment';
 
 export class SeminarsService {
   /**
@@ -552,6 +553,227 @@ export class SeminarsService {
       'completed': 'bg-blue-100 text-blue-800'
     };
     return colors[status as keyof typeof colors] || 'bg-gray-100 text-gray-800';
+  }
+
+  // Payment-related methods
+
+  /**
+   * Record a payment for a seminar
+   */
+  static async recordPayment(paymentData: PaymentData): Promise<boolean> {
+    if (!hasSupabaseConfig) {
+      await simulateApiDelay(300);
+      // Store in localStorage for demo purposes
+      const payments = JSON.parse(localStorage.getItem('payments') || '[]');
+      payments.push(paymentData);
+      localStorage.setItem('payments', JSON.stringify(payments));
+      return true;
+    }
+
+    try {
+      const { error } = await supabase
+        .from('payments')
+        .insert({
+          id: paymentData.id,
+          seminar_id: parseInt(paymentData.seminarId),
+          participant_name: paymentData.participantName,
+          participant_email: paymentData.participantEmail,
+          participant_phone: paymentData.participantPhone,
+          amount: paymentData.amount,
+          currency: paymentData.currency,
+          status: paymentData.status,
+          green_invoice_id: paymentData.greenInvoiceId,
+          invoice_number: paymentData.invoiceNumber,
+          payment_method: paymentData.paymentMethod,
+          created_at: paymentData.createdAt,
+          updated_at: paymentData.updatedAt,
+          paid_at: paymentData.paidAt,
+          failed_at: paymentData.failedAt,
+          failure_reason: paymentData.failureReason
+        });
+
+      if (error) {
+        console.error('Error recording payment:', error);
+        throw new Error('שגיאה בשמירת פרטי התשלום');
+      }
+
+      return true;
+    } catch (error) {
+      console.error('Service error recording payment:', error);
+      throw error instanceof Error ? error : new Error('שגיאה בשמירת פרטי התשלום');
+    }
+  }
+
+  /**
+   * Get payments for a seminar
+   */
+  static async getSeminarPayments(seminarId: number): Promise<PaymentData[]> {
+    if (!hasSupabaseConfig) {
+      await simulateApiDelay(200);
+      const payments = JSON.parse(localStorage.getItem('payments') || '[]');
+      return payments.filter((p: PaymentData) => p.seminarId === seminarId.toString());
+    }
+
+    try {
+      const { data, error } = await supabase
+        .from('payments')
+        .select('*')
+        .eq('seminar_id', seminarId)
+        .order('created_at', { ascending: false });
+
+      if (error) {
+        console.error('Error fetching seminar payments:', error);
+        throw new Error('שגיאה בטעינת פרטי התשלומים');
+      }
+
+      // Convert database format to PaymentData format
+      return (data || []).map(payment => ({
+        id: payment.id,
+        seminarId: payment.seminar_id.toString(),
+        participantName: payment.participant_name,
+        participantEmail: payment.participant_email,
+        participantPhone: payment.participant_phone,
+        amount: payment.amount,
+        currency: payment.currency,
+        status: payment.status,
+        greenInvoiceId: payment.green_invoice_id,
+        invoiceNumber: payment.invoice_number,
+        paymentMethod: payment.payment_method,
+        createdAt: payment.created_at,
+        updatedAt: payment.updated_at,
+        paidAt: payment.paid_at,
+        failedAt: payment.failed_at,
+        failureReason: payment.failure_reason
+      }));
+    } catch (error) {
+      console.error('Service error fetching seminar payments:', error);
+      throw error instanceof Error ? error : new Error('שגיאה בטעינת פרטי התשלומים');
+    }
+  }
+
+  /**
+   * Update participant count after successful payment
+   */
+  static async incrementParticipantCount(seminarId: number): Promise<boolean> {
+    try {
+      const seminar = await this.getSeminarById(seminarId);
+      if (!seminar) {
+        throw new Error('סדנה לא נמצאה');
+      }
+
+      const newCount = seminar.current_participants + 1;
+      const newStatus = newCount >= seminar.max_participants ? 'sold_out' : 'active';
+
+      if (!hasSupabaseConfig) {
+        await simulateApiDelay(200);
+        // Update mock data
+        const seminars = JSON.parse(localStorage.getItem('seminars') || JSON.stringify([...mockUpcomingSeminars, ...mockPastSeminars]));
+        const seminarIndex = seminars.findIndex((s: Seminar) => s.id === seminarId);
+        if (seminarIndex !== -1) {
+          seminars[seminarIndex].current_participants = newCount;
+          seminars[seminarIndex].status = newStatus;
+          localStorage.setItem('seminars', JSON.stringify(seminars));
+        }
+        return true;
+      }
+
+      const { error } = await supabase
+        .from('seminars')
+        .update({
+          current_participants: newCount,
+          status: newStatus
+        })
+        .eq('id', seminarId);
+
+      if (error) {
+        console.error('Error incrementing participant count:', error);
+        throw new Error('שגיאה בעדכון מספר המשתתפים');
+      }
+
+      return true;
+    } catch (error) {
+      console.error('Service error incrementing participant count:', error);
+      throw error instanceof Error ? error : new Error('שגיאה בעדכון מספר המשתתפים');
+    }
+  }
+
+  /**
+   * Check if early bird pricing is available
+   */
+  static isEarlyBirdAvailable(seminar: Seminar): boolean {
+    if (!seminar.early_bird_deadline || !seminar.early_bird_price) {
+      return false;
+    }
+
+    const now = new Date();
+    const earlyBirdDeadline = new Date(seminar.early_bird_deadline);
+    
+    return now <= earlyBirdDeadline;
+  }
+
+  /**
+   * Get current applicable price for a seminar
+   */
+  static getCurrentPrice(seminar: Seminar): number {
+    if (this.isEarlyBirdAvailable(seminar)) {
+      return seminar.early_bird_price!;
+    }
+    return seminar.price;
+  }
+
+  /**
+   * Check if payment deadline has passed
+   */
+  static isPaymentDeadlinePassed(seminar: Seminar): boolean {
+    if (!seminar.payment_deadline) {
+      return false;
+    }
+
+    const now = new Date();
+    const paymentDeadline = new Date(seminar.payment_deadline);
+    
+    return now > paymentDeadline;
+  }
+
+  /**
+   * Get payment status summary for a seminar
+   */
+  static async getPaymentSummary(seminarId: number): Promise<{
+    totalPaid: number;
+    totalPending: number;
+    totalFailed: number;
+    participantCount: number;
+  }> {
+    try {
+      const payments = await this.getSeminarPayments(seminarId);
+      
+      const summary = payments.reduce((acc, payment) => {
+        if (payment.status === 'completed') {
+          acc.totalPaid += payment.amount;
+          acc.participantCount++;
+        } else if (payment.status === 'pending' || payment.status === 'processing') {
+          acc.totalPending += payment.amount;
+        } else if (payment.status === 'failed') {
+          acc.totalFailed += payment.amount;
+        }
+        return acc;
+      }, {
+        totalPaid: 0,
+        totalPending: 0,
+        totalFailed: 0,
+        participantCount: 0
+      });
+
+      return summary;
+    } catch (error) {
+      console.error('Error getting payment summary:', error);
+      return {
+        totalPaid: 0,
+        totalPending: 0,
+        totalFailed: 0,
+        participantCount: 0
+      };
+    }
   }
 }
 

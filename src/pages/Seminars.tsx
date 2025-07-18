@@ -43,8 +43,8 @@ const Seminars: React.FC = () => {
   const handleRegisterClick = (seminar: Seminar) => {
     // For now, redirect to WhatsApp
     // Later this can be replaced with a registration modal or form
-    const message = `שלום דוד, אני מעוניין/ת להירשם לסדנה ב${seminar.city} בתאריך ${new Date(seminar.date).toLocaleDateString('he-IL')}`;
-    const whatsappUrl = `https://wa.me/972XXXXXXXXX?text=${encodeURIComponent(message)}`;
+    const message = `היי דוד, אני רוצה לקבל פרטים על הסדנה ${seminar.city} בתאריך ${new Date(seminar.date).toLocaleDateString('he-IL')}`;
+    const whatsappUrl = `https://wa.me/972544901057?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
   };
 

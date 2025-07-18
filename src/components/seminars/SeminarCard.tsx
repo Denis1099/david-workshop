@@ -117,18 +117,40 @@ const SeminarCard: React.FC<SeminarCardProps> = ({
 
         {/* Action Buttons */}
         <div className="space-y-3">
-          {/* Primary CTA - Register */}
-          <button
-            onClick={() => onRegisterClick(seminar)}
-            disabled={isDisabled}
-            className={`w-full py-3 rounded-lg typo-button-cta transition-all duration-300 transform hover:scale-105 ${
-              isDisabled 
-                ? 'bg-gray-300 text-gray-500 cursor-not-allowed' 
-                : 'bg-cta hover:bg-yellow-600 text-bg-primary'
-            }`}
-          >
-            {isDisabled ? 'לא זמין' : 'הרשמה מהירה'}
-          </button>
+          {/* Payment Buttons */}
+          {!isDisabled && (
+            <div className="grid grid-cols-1 gap-2">
+              {/* External Payment Button */}
+              {seminar.payment_link && (
+                <a
+                  href={seminar.payment_link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full bg-green-600 hover:bg-green-700 text-white typo-button-cta py-3 rounded-lg transition-all duration-300 transform hover:scale-105 text-center block"
+                >
+                  רכישה מהירה
+                </a>
+              )}
+              
+              {/* WhatsApp Button */}
+              <button
+                onClick={() => onRegisterClick(seminar)}
+                className="w-full bg-cta hover:bg-yellow-600 text-bg-primary typo-button-cta py-3 rounded-lg transition-all duration-300 transform hover:scale-105"
+              >
+                רכישה בוואטסאפ
+              </button>
+            </div>
+          )}
+
+          {/* Disabled State */}
+          {isDisabled && (
+            <button
+              disabled
+              className="w-full bg-gray-300 text-gray-500 cursor-not-allowed typo-button-cta py-3 rounded-lg"
+            >
+              לא זמין
+            </button>
+          )}
 
           {/* Secondary CTA - Details */}
           <Link

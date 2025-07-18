@@ -1,8 +1,15 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Hero: React.FC = () => {
+  const navigate = useNavigate();
+  
   const handleWhatsAppClick = () => {
     window.open('https://wa.link/mfzmps', '_blank');
+  };
+  
+  const handleSeminarsClick = () => {
+    navigate('/seminars');
   };
 
   return (
@@ -58,7 +65,9 @@ const Hero: React.FC = () => {
               <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center 
                               items-center mb-8 sm:mb-10 lg:mb-12">
                 {/* Primary CTA */}
-                <button className="w-full sm:w-auto bg-cta hover:bg-yellow-600 text-bg-primary 
+                <button 
+                  onClick={handleSeminarsClick}
+                  className="w-full sm:w-auto bg-cta hover:bg-yellow-600 text-bg-primary 
                                   typo-button-cta px-6 sm:px-8 py-3 sm:py-4 rounded-lg 
                                   transition-all duration-300 
                                   transform hover:scale-105">

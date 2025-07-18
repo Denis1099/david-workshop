@@ -3,12 +3,25 @@ import { useParams, Navigate } from 'react-router-dom';
 import { Seminar } from '../types/seminar';
 import { SeminarsService } from '../services/seminarsService';
 import { generateSeminarPageTitle, generateSeminarPageDescription } from '../utils/seminarUtils';
+// Payment imports temporarily disabled for WhatsApp-only flow
+// import { PaymentData, PaymentError, PaymentStatus } from '../types/payment';
+// import PaymentButton from '../components/payment/PaymentButton';
+// import PaymentModal from '../components/payment/PaymentModal';
+// import PaymentStatusComponent from '../components/payment/PaymentStatus';
+// import greenInvoiceService from '../services/greenInvoiceService';
 
 const SeminarSalesPage: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
   const [seminar, setSeminar] = useState<Seminar | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  
+  // Payment state temporarily disabled for WhatsApp-only flow
+  // const [showPaymentModal, setShowPaymentModal] = useState(false);
+  // const [paymentData, setPaymentData] = useState<PaymentData | null>(null);
+  // const [paymentStatus, setPaymentStatus] = useState<PaymentStatus | null>(null);
+  // const [paymentError, setPaymentError] = useState<PaymentError | null>(null);
+  // const [paymentLoading, setPaymentLoading] = useState(false);
 
   useEffect(() => {
     const fetchSeminar = async () => {
@@ -61,9 +74,9 @@ const SeminarSalesPage: React.FC = () => {
 
   const handleWhatsAppClick = () => {
     const message = encodeURIComponent(
-      `שלום דוד! אני מעוניין להירשם לסדנת הרמת המשקולות האולימפית ב${seminar?.city} בתאריך ${formatDate(seminar?.date || '')}`
+      `היי דוד, אני רוצה לקבל פרטים על הסדנה ${seminar?.city} בתאריך ${formatDate(seminar?.date || '')}`
     );
-    window.open(`https://wa.me/972501234567?text=${message}`, '_blank');
+    window.open(`https://wa.me/972544901057?text=${message}`, '_blank');
   };
 
   const getAvailabilityInfo = () => {
@@ -73,6 +86,35 @@ const SeminarSalesPage: React.FC = () => {
 
   const availabilityInfo = getAvailabilityInfo();
   const isAvailable = seminar && SeminarsService.isAvailableForRegistration(seminar);
+  // Payment-related variables temporarily disabled for WhatsApp-only flow
+  // const currentPrice = seminar ? greenInvoiceService.getCurrentPrice(seminar) : 0;
+  // const isEarlyBird = seminar && seminar.early_bird_price && currentPrice === seminar.early_bird_price;
+  // const paymentEnabled = seminar?.payment_enabled !== false; // Default to true
+
+  // Payment handlers temporarily disabled for WhatsApp-only flow
+  // const handlePaymentClick = () => {
+  //   setShowPaymentModal(true);
+  // };
+  // const handlePaymentSuccess = (payment: PaymentData) => {
+  //   setPaymentData(payment);
+  //   setPaymentStatus(PaymentStatus.COMPLETED);
+  //   setShowPaymentModal(false);
+  // };
+  // const handlePaymentError = (error: PaymentError) => {
+  //   setPaymentError(error);
+  //   setPaymentStatus(PaymentStatus.FAILED);
+  //   setShowPaymentModal(false);
+  // };
+  // const handlePaymentStatusClose = () => {
+  //   setPaymentStatus(null);
+  //   setPaymentError(null);
+  //   setPaymentData(null);
+  // };
+  // const handlePaymentRetry = () => {
+  //   setPaymentError(null);
+  //   setPaymentStatus(null);
+  //   setShowPaymentModal(true);
+  // };
 
   if (loading) {
     return (
@@ -144,24 +186,47 @@ const SeminarSalesPage: React.FC = () => {
 
             {/* Price */}
             <div className="text-center mb-8">
-              <div className="typo-section-title text-cta">₪{seminar.price}</div>
+              <div className="flex items-center justify-center gap-4">
+                <div className="typo-section-title text-cta">₪{seminar.price}</div>
+                {seminar.early_bird_price && seminar.early_bird_deadline && new Date() <= new Date(seminar.early_bird_deadline) && (
+                  <div className="flex flex-col">
+                    <div className="typo-body-medium text-gray-500 line-through">₪{seminar.price}</div>
+                    <div className="typo-body-small text-green-600 font-medium">מחיר מוקדם: ₪{seminar.early_bird_price}</div>
+                  </div>
+                )}
+              </div>
               <p className="typo-body-medium text-text-primary/70 mt-2">למשתתף</p>
+              {seminar.early_bird_deadline && new Date() <= new Date(seminar.early_bird_deadline) && (
+                <p className="typo-body-small text-orange-600 mt-1">
+                  מחיר מוקדם עד {new Date(seminar.early_bird_deadline).toLocaleDateString('he-IL')}
+                </p>
+              )}
             </div>
 
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex justify-center">
               {isAvailable ? (
-                <>
+                <div className="flex flex-col sm:flex-row gap-4 items-center">
+                  {/* External Payment Button */}
+                  {seminar.payment_link && (
+                    <a
+                      href={seminar.payment_link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="typo-button-large bg-green-600 hover:bg-green-700 text-white px-12 py-4 rounded-lg transition-colors duration-200 font-medium"
+                    >
+                      רכישה מהירה
+                    </a>
+                  )}
+                  
+                  {/* WhatsApp Button */}
                   <button
                     onClick={handleWhatsAppClick}
-                    className="typo-button-large bg-cta hover:bg-cta/90 text-white px-8 py-4 rounded-lg transition-colors duration-200 font-medium"
+                    className="typo-button-large bg-cta hover:bg-cta/90 text-white px-12 py-4 rounded-lg transition-colors duration-200 font-medium"
                   >
-                    הרשמה מהירה - WhatsApp
+                    רכישה בוואטסאפ
                   </button>
-                  <button className="typo-button-large border-2 border-cta text-cta hover:bg-cta hover:text-white px-8 py-4 rounded-lg transition-colors duration-200 font-medium">
-                    הרשמה באתר
-                  </button>
-                </>
+                </div>
               ) : (
                 <button
                   disabled
@@ -300,15 +365,12 @@ const SeminarSalesPage: React.FC = () => {
               הצטרף לסדנה ב{seminar.city} וקח את הביצועים שלך לרמה הבאה
             </p>
             {isAvailable ? (
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <div className="flex justify-center">
                 <button
                   onClick={handleWhatsAppClick}
-                  className="typo-button-large bg-white hover:bg-gray-100 text-cta px-8 py-4 rounded-lg transition-colors duration-200 font-medium"
+                  className="typo-button-large bg-white hover:bg-gray-100 text-cta px-12 py-4 rounded-lg transition-colors duration-200 font-medium"
                 >
-                  הרשמה מהירה - WhatsApp
-                </button>
-                <button className="typo-button-large border-2 border-white text-white hover:bg-white hover:text-cta px-8 py-4 rounded-lg transition-colors duration-200 font-medium">
-                  הרשמה באתר
+                  צור קשר להרשמה - WhatsApp
                 </button>
               </div>
             ) : (
@@ -319,6 +381,8 @@ const SeminarSalesPage: React.FC = () => {
           </div>
         </div>
       </section>
+
+      {/* Payment components temporarily removed for WhatsApp-only flow */}
     </div>
   );
 };

@@ -26,7 +26,8 @@ const SeminarForm: React.FC<SeminarFormProps> = ({
     current_participants: seminar?.current_participants || 0,
     price: seminar?.price || 480,
     status: seminar?.status || 'active',
-    special_notes: seminar?.special_notes || ''
+    special_notes: seminar?.special_notes || '',
+    payment_link: seminar?.payment_link || ''
   });
 
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -68,6 +69,14 @@ const SeminarForm: React.FC<SeminarFormProps> = ({
 
     if (formData.price <= 0) {
       newErrors.price = 'מחיר חייב להיות גדול מ-0';
+    }
+
+    if (formData.payment_link && formData.payment_link.trim()) {
+      try {
+        new URL(formData.payment_link);
+      } catch {
+        newErrors.payment_link = 'כתובת URL לא תקינה';
+      }
     }
 
     setErrors(newErrors);
@@ -296,6 +305,27 @@ const SeminarForm: React.FC<SeminarFormProps> = ({
           className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-cta focus:border-cta resize-none"
           placeholder="הערות נוספות על הסדנה..."
         />
+      </div>
+
+      <div>
+        <label className="block typo-body-regular text-gray-700 mb-2">
+          קישור לתשלום חיצוני
+        </label>
+        <input
+          type="url"
+          value={formData.payment_link}
+          onChange={(e) => handleChange('payment_link', e.target.value)}
+          className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-cta focus:border-cta ${
+            errors.payment_link ? 'border-red-500' : 'border-gray-300'
+          }`}
+          placeholder="https://pages.greeninvoice.co.il/payments/links/..."
+        />
+        {errors.payment_link && (
+          <p className="mt-1 typo-body-small text-red-600">{errors.payment_link}</p>
+        )}
+        <p className="mt-1 typo-body-small text-gray-500">
+          קישור לדף תשלום חיצוני (Green Invoice או מעבד תשלומים אחר)
+        </p>
       </div>
 
       <div className="flex gap-4 pt-4">

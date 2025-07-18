@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import supabaseEmailService from '../../services/supabaseEmailService';
 
 const ContactForm: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -41,13 +42,32 @@ const ContactForm: React.FC = () => {
     setIsSubmitting(true);
     
     try {
-      // Here you would typically send to your backend/API
-      // For now, we'll simulate a successful submission
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      // Send admin notification email via Supabase
+      await supabaseEmailService.sendContactFormNotification({
+        name: formData.name,
+        phone: formData.phone,
+        email: formData.email || '',
+        message: 'הרשמה לעדכונים מהאתר'
+      });
+
+      // Send auto-reply if email provided
+      if (formData.email.trim()) {
+        await supabaseEmailService.sendContactFormAutoReply(formData.email, formData.name);
+      }
+
+      // Store in localStorage for demo purposes (existing functionality)
+      const contacts = JSON.parse(localStorage.getItem('contacts') || '[]');
+      contacts.push({
+        ...formData,
+        timestamp: new Date().toISOString(),
+        source: 'contact_form'
+      });
+      localStorage.setItem('contacts', JSON.stringify(contacts));
       
       setSubmitMessage('תודה! נציג יצור איתך קשר בקרוב');
       setFormData({ name: '', phone: '', email: '' });
     } catch (error) {
+      console.error('Error submitting contact form:', error);
       setSubmitMessage('שגיאה בשליחה, אנא נסו שוב');
     } finally {
       setIsSubmitting(false);

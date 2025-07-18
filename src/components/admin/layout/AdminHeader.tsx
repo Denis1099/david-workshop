@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 
 const AdminHeader: React.FC = () => {
   const location = useLocation();
@@ -64,6 +64,15 @@ const AdminHeader: React.FC = () => {
         </div>
 
         <div className="flex items-center space-x-4">
+          <Link
+            to="/"
+            className="flex items-center gap-2 px-4 py-2 text-gray-600 hover:text-bg-primary border border-gray-300 hover:border-bg-primary rounded-lg transition-colors duration-200"
+          >
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            </svg>
+            <span className="typo-body-small font-medium">חזרה לאתר</span>
+          </Link>
           <div className="text-left">
             <p className="typo-body-small text-gray-500">
               {new Date().toLocaleDateString('he-IL', {

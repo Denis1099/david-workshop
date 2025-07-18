@@ -1,6 +1,8 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const AboutDavid: React.FC = () => {
+  const navigate = useNavigate();
   const mediaLinks = [
     {
       title: "הרמת משקולות: ליטבינוב סיים עשירי באליפות אירופה",
@@ -270,7 +272,9 @@ const AboutDavid: React.FC = () => {
               {/* CTA Buttons */}
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
                 {/* Primary CTA Button */}
-                <button className="bg-cta hover:bg-yellow-600 text-bg-primary 
+                <button 
+                  onClick={() => navigate('/seminars')}
+                  className="bg-cta hover:bg-yellow-600 text-bg-primary 
                                  typo-button-cta px-8 py-4 rounded-lg 
                                  transition-all duration-300 transform hover:scale-105
                                  w-full sm:w-auto">

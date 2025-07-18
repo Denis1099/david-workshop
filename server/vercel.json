@@ -1,0 +1,27 @@
+{
+  "version": 2,
+  "name": "david-workshop-server",
+  "builds": [
+    {
+      "src": "server.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/health",
+      "dest": "server.js"
+    },
+    {
+      "src": "/api/webhooks/green-invoice",
+      "dest": "server.js"
+    },
+    {
+      "src": "/api/webhooks/test",
+      "dest": "server.js"
+    }
+  ],
+  "env": {
+    "NODE_ENV": "production"
+  }
+}
