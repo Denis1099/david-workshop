@@ -21,7 +21,7 @@ GREEN_INVOICE_WEBHOOK_SECRET=your_webhook_secret_from_green_invoice_dashboard
 
 # Supabase Configuration
 SUPABASE_URL=https://czszywrzxfckhxutxuqj.supabase.co
-SUPABASE_SERVICE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN6c3p5d3J6eGZja2h4dXR4dXFqIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1MjUwMjU0OCwiZXhwIjoyMDY4MDc4NTQ4fQ.p8qG8M0OYxvDjsG2dGaKGKgHZrKCRPq4QvusDViL8ag
+SUPABASE_SERVICE_KEY=your_supabase_service_key_here
 
 # Email Configuration (optional)
 SMTP_HOST=smtp.gmail.com
@@ -66,8 +66,8 @@ REACT_APP_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXB
 
 # Green Invoice Configuration
 REACT_APP_GREEN_INVOICE_API_URL=https://api.greeninvoice.co.il/api/v1
-REACT_APP_GREEN_INVOICE_API_KEY=7a5a904f-00cc-4c18-9bb4-4203990dff79
-REACT_APP_GREEN_INVOICE_SECRET=5moCrZGONKZAQq5zBKaWkw
+REACT_APP_GREEN_INVOICE_API_KEY=your_green_invoice_api_key_here
+REACT_APP_GREEN_INVOICE_SECRET=your_green_invoice_secret_here
 REACT_APP_GREEN_INVOICE_ENVIRONMENT=production
 
 # Webhook Configuration
@@ -75,7 +75,7 @@ REACT_APP_WEBHOOK_URL=https://webhook.liftvinov.com/api/webhooks/green-invoice
 REACT_APP_WEBHOOK_SECRET=your_webhook_secret_here
 
 # Email Configuration
-REACT_APP_RESEND_API_KEY=re_exn7K95Y_3w1PGR2BYeP3GFcxysSTmSdy
+REACT_APP_RESEND_API_KEY=your_resend_api_key_here
 ```
 
 ### CloudBe Settings for React App
