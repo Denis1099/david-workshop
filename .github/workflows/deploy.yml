@@ -1,0 +1,46 @@
+name: Auto Deploy to Production
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout main branch
+      uses: actions/checkout@v4
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+    
+    - name: Install dependencies
+      run: npm ci
+    
+    - name: Build React app
+      run: npm run build
+    
+    - name: Deploy to production branch
+      run: |
+        # Configure git
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        
+        # Create/checkout production branch
+        git checkout -B production
+        
+        # Remove everything except build folder and .git
+        find . -maxdepth 1 ! -name '.git' ! -name 'build' ! -name '.' -exec rm -rf {} +
+        
+        # Move build contents to root
+        cp -r build/* .
+        rm -rf build
+        
+        # Commit and push
+        git add .
+        git commit -m "Auto-deploy: $(git log --format=%B -n 1 $GITHUB_SHA)"
+        git push origin production --force
