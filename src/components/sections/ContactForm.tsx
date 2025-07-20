@@ -80,10 +80,12 @@ const ContactForm: React.FC = () => {
         {/* Title */}
         <div className="text-center mb-12 lg:mb-16">
           <h2 className="typo-section-title mb-6 text-content">
-            רוצים לדבר?
+            רוצים לדבר איתי?
           </h2>
           <p className="typo-body-large text-gray-300 mb-8">
-            אני עונה אישית לכל הודעה
+          רוצים לארח אותי במועדון שלכם? <br />
+          לא בטוחים אם הסדנה מתאימה לכם או שיש לכם כל שאלה אחרת? <br />
+          מוזמנים לכתוב לי - אני עונה לכל אחד באופן אישי.
           </p>
           
           {/* WhatsApp Button */}
@@ -157,7 +159,7 @@ const ContactForm: React.FC = () => {
               {/* Email Field */}
               <div className="flex-1">
                 <label htmlFor="email" className="block typo-body-regular text-text-primary mb-2 text-right">
-                  כתובת אימייל (לא חובה)
+                  כתובת אימייל
                 </label>
                 <input
                   type="email"

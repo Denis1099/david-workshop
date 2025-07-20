@@ -1,5 +1,5 @@
 import { WebhookPayload, PaymentStatus } from '../types/payment';
-import greenInvoiceService from './greenInvoiceService';
+import { supabase } from '../lib/supabase';
 import supabaseEmailService from './supabaseEmailService';
 
 class WebhookService {
@@ -64,7 +64,7 @@ class WebhookService {
       const { data } = payload;
       
       // Update payment status in our system
-      await greenInvoiceService.updatePaymentStatus(
+      await this.updatePaymentStatusInDatabase(
         data.id,
         PaymentStatus.COMPLETED,
         {
@@ -98,7 +98,7 @@ class WebhookService {
       const { data } = payload;
       
       // Update payment status
-      await greenInvoiceService.updatePaymentStatus(
+      await this.updatePaymentStatusInDatabase(
         data.id,
         PaymentStatus.FAILED,
         {
@@ -125,7 +125,7 @@ class WebhookService {
       const { data } = payload;
       
       // Update payment status
-      await greenInvoiceService.updatePaymentStatus(
+      await this.updatePaymentStatusInDatabase(
         data.id,
         PaymentStatus.CANCELLED,
         {
@@ -146,7 +146,7 @@ class WebhookService {
       const { data } = payload;
       
       // Update payment status
-      await greenInvoiceService.updatePaymentStatus(
+      await this.updatePaymentStatusInDatabase(
         data.id,
         PaymentStatus.REFUNDED,
         {
@@ -190,28 +190,83 @@ class WebhookService {
     }
   }
 
+  private async updatePaymentStatusInDatabase(paymentId: string, status: PaymentStatus, details?: any): Promise<void> {
+    try {
+      const updateData: any = {
+        status: status,
+        updated_at: new Date().toISOString()
+      };
+
+      if (status === PaymentStatus.COMPLETED) {
+        updateData.paid_at = new Date().toISOString();
+        if (details?.paymentMethod) {
+          updateData.payment_method = details.paymentMethod;
+        }
+      } else if (status === PaymentStatus.FAILED) {
+        updateData.failed_at = new Date().toISOString();
+        if (details?.reason) {
+          updateData.failure_reason = details.reason;
+        }
+      }
+
+      const { error } = await supabase
+        .from('payments')
+        .update(updateData)
+        .eq('id', paymentId);
+
+      if (error) {
+        console.error('Error updating payment status in database:', error);
+        throw error;
+      }
+
+      console.log(`Payment ${paymentId} status updated to ${status}`);
+    } catch (error) {
+      console.error('Error updating payment status in database:', error);
+      throw error;
+    }
+  }
+
   private async updateSeminarParticipantCount(seminarId: string, delta: number = 1): Promise<void> {
     try {
-      // In a real implementation, update the seminar participant count in the database
-      // For now, we'll update localStorage
-      const seminars = JSON.parse(localStorage.getItem('seminars') || '[]');
-      const seminarIndex = seminars.findIndex((s: any) => s.id.toString() === seminarId);
-      
-      if (seminarIndex !== -1) {
-        seminars[seminarIndex].current_participants = Math.max(
-          0,
-          seminars[seminarIndex].current_participants + delta
-        );
-        
-        // Update status if needed
-        if (seminars[seminarIndex].current_participants >= seminars[seminarIndex].max_participants) {
-          seminars[seminarIndex].status = 'sold_out';
-        } else if (seminars[seminarIndex].status === 'sold_out' && delta < 0) {
-          seminars[seminarIndex].status = 'active';
-        }
-        
-        localStorage.setItem('seminars', JSON.stringify(seminars));
+      // Get current seminar data
+      const { data: seminar, error: fetchError } = await supabase
+        .from('seminars')
+        .select('current_participants, max_participants, status')
+        .eq('id', seminarId)
+        .single();
+
+      if (fetchError) {
+        console.error('Error fetching seminar for participant update:', fetchError);
+        return;
       }
+
+      // Calculate new participant count
+      const newParticipantCount = Math.max(0, seminar.current_participants + delta);
+      
+      // Determine new status
+      let newStatus = seminar.status;
+      if (newParticipantCount >= seminar.max_participants && seminar.status === 'active') {
+        newStatus = 'sold_out';
+      } else if (newParticipantCount < seminar.max_participants && seminar.status === 'sold_out') {
+        newStatus = 'active';
+      }
+
+      // Update seminar in database
+      const { error: updateError } = await supabase
+        .from('seminars')
+        .update({
+          current_participants: newParticipantCount,
+          status: newStatus,
+          updated_at: new Date().toISOString()
+        })
+        .eq('id', seminarId);
+
+      if (updateError) {
+        console.error('Error updating seminar participant count:', updateError);
+        return;
+      }
+
+      console.log(`Seminar ${seminarId} participants updated: ${seminar.current_participants} → ${newParticipantCount}`);
     } catch (error) {
       console.error('Error updating seminar participant count:', error);
     }

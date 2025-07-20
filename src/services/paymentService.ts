@@ -1,101 +1,14 @@
 import { 
   PaymentData, 
   PaymentStatus,
-  PaymentFormData,
-  GreenInvoiceResponse
+  PaymentFormData
 } from '../types/payment';
 import { Seminar } from '../types/seminar';
 import { supabase } from '../lib/supabase';
 
 class PaymentService {
-  private async callBackendAPI(endpoint: string, data: any): Promise<any> {
-    try {
-      // Call our backend API through Supabase Edge Functions
-      const { data: result, error } = await supabase.functions.invoke(endpoint, {
-        body: data
-      });
-
-      if (error) {
-        throw new Error(error.message);
-      }
-
-      return result;
-    } catch (error) {
-      console.error(`Error calling ${endpoint}:`, error);
-      throw error;
-    }
-  }
-
-  async createPayment(seminar: Seminar, paymentData: PaymentFormData): Promise<PaymentData> {
-    console.log('🔄 PaymentService: Creating payment...', { seminar: seminar.city, participant: paymentData.participantName });
-    
-    try {
-      // This calls our backend Edge Function which handles Green Invoice API
-      const result = await this.callBackendAPI('create-payment', {
-        seminar: {
-          id: seminar.id,
-          city: seminar.city,
-          date: seminar.date,
-          price: this.getCurrentPrice(seminar),
-          special_notes: seminar.special_notes,
-          payment_deadline: seminar.payment_deadline
-        },
-        paymentData
-      });
-
-      const payment: PaymentData = {
-        ...result.payment,
-        status: PaymentStatus.PENDING
-      };
-
-      console.log('✅ PaymentService: Payment created successfully', payment);
-      return payment;
-    } catch (error) {
-      console.error('❌ PaymentService: Error creating payment:', error);
-      throw error;
-    }
-  }
-
-  async createInvoice(seminar: Seminar, paymentData: PaymentFormData): Promise<GreenInvoiceResponse> {
-    console.log('🔄 PaymentService: Creating invoice...', { seminar: seminar.city, participant: paymentData.participantName });
-    
-    try {
-      const result = await this.callBackendAPI('create-invoice', {
-        seminar: {
-          id: seminar.id,
-          city: seminar.city,
-          date: seminar.date,
-          price: this.getCurrentPrice(seminar),
-          special_notes: seminar.special_notes,
-          payment_deadline: seminar.payment_deadline
-        },
-        paymentData
-      });
-
-      console.log('✅ PaymentService: Invoice created successfully', result.invoice);
-      return result.invoice;
-    } catch (error) {
-      console.error('❌ PaymentService: Error creating invoice:', error);
-      throw error;
-    }
-  }
-
-  async getPaymentStatus(paymentId: string): Promise<{ status: PaymentStatus; details?: any }> {
-    console.log('🔄 PaymentService: Getting payment status...', paymentId);
-    
-    try {
-      const result = await this.callBackendAPI('get-payment-status', { paymentId });
-      
-      return {
-        status: this.mapPaymentStatus(result.status),
-        details: result.details
-      };
-    } catch (error) {
-      console.error('❌ PaymentService: Error getting payment status:', error);
-      throw error;
-    }
-  }
-
+  // Green Invoice API methods removed - using external payment links instead
+  
   private mapPaymentStatus(status: string): PaymentStatus {
     switch (status?.toLowerCase()) {
       case 'paid':
@@ -131,13 +44,23 @@ class PaymentService {
     console.log('🔄 PaymentService: Updating payment status...', { paymentId, status });
     
     try {
-      const result = await this.callBackendAPI('update-payment-status', {
-        paymentId,
-        status
-      });
+      const { error } = await supabase
+        .from('payments')
+        .update({
+          status: status,
+          updated_at: new Date().toISOString(),
+          ...(status === PaymentStatus.COMPLETED && { paid_at: new Date().toISOString() }),
+          ...(status === PaymentStatus.FAILED && { failed_at: new Date().toISOString() })
+        })
+        .eq('id', paymentId);
+      
+      if (error) {
+        console.error('❌ PaymentService: Database error updating payment status:', error);
+        return false;
+      }
       
       console.log('✅ PaymentService: Payment status updated successfully');
-      return result.success;
+      return true;
     } catch (error) {
       console.error('❌ PaymentService: Error updating payment status:', error);
       return false;
@@ -146,8 +69,35 @@ class PaymentService {
 
   async getPaymentData(paymentId: string): Promise<PaymentData | null> {
     try {
-      const result = await this.callBackendAPI('get-payment-data', { paymentId });
-      return result.payment || null;
+      const { data, error } = await supabase
+        .from('payments')
+        .select('*')
+        .eq('id', paymentId)
+        .single();
+
+      if (error) {
+        console.error('❌ PaymentService: Error getting payment data:', error);
+        return null;
+      }
+
+      return {
+        id: data.id,
+        seminarId: data.seminar_id,
+        participantName: data.participant_name,
+        participantEmail: data.participant_email,
+        participantPhone: data.participant_phone,
+        amount: data.amount,
+        currency: data.currency,
+        status: data.status,
+        greenInvoiceId: data.green_invoice_id,
+        invoiceNumber: data.invoice_number,
+        paymentMethod: data.payment_method,
+        createdAt: data.created_at,
+        updatedAt: data.updated_at,
+        paidAt: data.paid_at,
+        failedAt: data.failed_at,
+        failureReason: data.failure_reason
+      };
     } catch (error) {
       console.error('❌ PaymentService: Error getting payment data:', error);
       return null;
@@ -155,7 +105,7 @@ class PaymentService {
   }
 
   isConfigured(): boolean {
-    return true; // Always true since we use backend
+    return true; // External payment links are always available
   }
 
   getEnvironment(): string {

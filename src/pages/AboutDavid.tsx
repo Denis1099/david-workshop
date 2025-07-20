@@ -34,7 +34,7 @@ const AboutDavid: React.FC = () => {
   return (
     <div className="min-h-screen bg-bg-primary text-text-primary" dir="rtl">
       {/* Hero Section */}
-      <section className="pt-24 pb-16 lg:pt-32 lg:pb-24">
+      <section className="pt-24 pb-16 lg:pt-16 lg:pb-16">
         <div className="mx-auto px-4 text-center max-w-[1200px]">
           <h1 className="typo-page-title mb-6 text-content">
             הסיפור המלא של דוד ליטבינוב
@@ -49,14 +49,14 @@ const AboutDavid: React.FC = () => {
       <section className="pb-16 lg:pb-24">
         <div className="mx-auto px-4 max-w-4xl">
           {/* Main Hero Image */}
-          <div className="mb-16 flex justify-center">
-            <div className="retina-image-container transform hover:scale-105 transition-all duration-300">
+          <div className="mb-16">
+            <div className="w-full transform hover:scale-105 transition-all duration-300">
               <picture>
                 <source srcSet="/images/aboutpage/david-lifting.webp" type="image/webp" />
                 <img 
                   src="/images/aboutpage/david-lifting.webp"
                   alt="דוד ליטבינוב מרים משקולות"
-                  className="retina-image"
+                  className="w-full h-auto rounded-lg shadow-lg"
                 />
               </picture>
             </div>

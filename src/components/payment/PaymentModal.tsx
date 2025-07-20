@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { PaymentModalProps, PaymentFormData, PaymentStatus } from '../../types/payment';
-import greenInvoiceService from '../../services/greenInvoiceService';
+// Green Invoice service removed - using external payment links instead
 
 const PaymentModal: React.FC<PaymentModalProps> = ({
   isOpen,
@@ -101,42 +101,16 @@ const PaymentModal: React.FC<PaymentModalProps> = ({
         time_end: '16:00'
       };
 
-      // Create invoice first for record keeping
-      const invoiceResult = await greenInvoiceService.createInvoice(seminar, formData);
+      // Payment processing now happens through external payment links
+      // This modal is for legacy purposes only - direct users to external payment links
       
-      // For now, we'll create a payment record but show that payment is needed
-      const paymentRecord = {
-        id: `payment_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
-        seminarId: seminar.id.toString(),
-        participantName: formData.participantName,
-        participantEmail: formData.participantEmail,
-        participantPhone: formData.participantPhone,
-        amount: seminar.price,
-        currency: 'ILS',
-        status: PaymentStatus.PENDING,
-        greenInvoiceId: invoiceResult.id,
-        invoiceNumber: invoiceResult.number,
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString()
-      };
+      alert(`הרשמה נקלטה! 
       
-      // Store payment record
-      greenInvoiceService.storePaymentData(paymentRecord);
-      
-      // Show payment instruction instead of false success
-      alert(`הרשמה נקלטה בהצלחה! 
-      
-חשבונית מספר: ${invoiceResult.number}
-סכום לתשלום: ${seminar.price} ש״ח
+לתשלום, אנא השתמש בקישור התשלום החיצוני או צור קשר דרך WhatsApp.
 
-אנא העבר תשלום באמצעות:
-• העברה בנקאית
-• ביט / PayBox
-• צור קשר לתיאום תשלום אשראי
-
-לאחר התשלום, אנא שלח אישור לדוד בוואטסאפ.`);
+סכום לתשלום: ${seminar.price} ש״ח`);
       
-      // Close modal - no false success message
+      // Close modal and redirect to payment options
       onClose();
     } catch (error: any) {
       // Display Hebrew error to user but handle technical errors differently

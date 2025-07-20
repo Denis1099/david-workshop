@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 
 const Header: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -10,6 +12,27 @@ const Header: React.FC = () => {
 
   const closeMobileMenu = () => {
     setIsMobileMenuOpen(false);
+  };
+
+  const scrollToSection = (sectionId: string) => {
+    closeMobileMenu();
+    
+    if (location.pathname !== '/') {
+      // Navigate to home page first, then scroll after navigation
+      navigate('/');
+      setTimeout(() => {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    } else {
+      // Already on home page, just scroll
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
   };
 
   return (
@@ -55,12 +78,12 @@ const Header: React.FC = () => {
             <Link to="/about-david" className="text-navbar-text hover:text-cta transition-colors font-heebo px-4 py-2 rounded-lg">
               מי אני?
             </Link>
-            <a href="/#faq" className="text-navbar-text hover:text-cta transition-colors font-heebo px-4 py-2 rounded-lg">
+            <button onClick={() => scrollToSection('faq')} className="text-navbar-text hover:text-cta transition-colors font-heebo px-4 py-2 rounded-lg">
               שאלות נפוצות
-            </a>
-            <a href="/#testimonials" className="text-navbar-text hover:text-cta transition-colors font-heebo px-4 py-2 rounded-lg">
+            </button>
+            <button onClick={() => scrollToSection('testimonials')} className="text-navbar-text hover:text-cta transition-colors font-heebo px-4 py-2 rounded-lg">
               מה הם אומרים?
-            </a>
+            </button>
           </nav>
 
           {/* CTA Button - Left side in RTL - Hidden on Mobile */}
@@ -83,20 +106,18 @@ const Header: React.FC = () => {
             >
               מי אני?
             </Link>
-            <a 
-              href="/#faq" 
+            <button 
+              onClick={() => scrollToSection('faq')}
               className="text-navbar-text hover:text-cta transition-colors font-heebo text-center py-2 w-full flex items-center justify-center"
-              onClick={closeMobileMenu}
             >
               שאלות נפוצות
-            </a>
-            <a 
-              href="/#testimonials" 
+            </button>
+            <button 
+              onClick={() => scrollToSection('testimonials')}
               className="text-navbar-text hover:text-cta transition-colors font-heebo text-center py-2 w-full flex items-center justify-center"
-              onClick={closeMobileMenu}
             >
               מה הם אומרים?
-            </a>
+            </button>
             
             {/* Mobile CTA Button */}
             <Link 

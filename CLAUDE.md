@@ -89,14 +89,9 @@ The payment system is temporarily configured for WhatsApp-only registration flow
 Payment components are temporarily disabled but preserved in codebase:
 
 #### **Green Invoice Integration**
-- **Purpose**: Business management & tax-compliant invoicing (NOT payment processing)
-- **API Endpoints**: Creates invoices/receipts for Israeli tax compliance
-- **Edge Functions**: 
-  - `/functions/v1/create-payment` - Creates invoice + payment record
-  - `/functions/v1/create-invoice` - Invoice generation only
-  - `/functions/v1/green-invoice-webhook` - Payment status updates
-- **Environment Variables**: `GREEN_INVOICE_API_KEY`, `GREEN_INVOICE_SECRET`
-- **Status**: Functional but disabled for WhatsApp flow
+- **Status**: REMOVED - Direct API integration removed in favor of external payment links
+- **Webhook Support**: `/functions/v1/green-invoice-webhook` - Still available for payment status updates if needed
+- **Previous Environment Variables**: `GREEN_INVOICE_API_KEY`, `GREEN_INVOICE_SECRET` - No longer required
 
 #### **Payment Processor Requirements (Future)**
 Green Invoice does NOT process credit cards. For payment processing, integrate:
@@ -109,32 +104,32 @@ User → Payment Form → Payment Processor → Payment Complete →
 Auto-Generate Green Invoice → Update Database → Confirmation Email
 ```
 
-### Restoration Instructions
-To re-enable payment system:
-1. Uncomment payment imports in `SeminarSalesPage.tsx`
-2. Uncomment payment state and handlers
-3. Restore PaymentButton and PaymentModal components
-4. Add payment processor integration (Tranzila/Stripe)
-5. Configure automatic Green Invoice generation after payment success
+### Payment System Architecture Changes
+**Current State**: External payment links with webhook support for status updates
+- **Payment Processing**: External payment provider links (seminar.payment_link)
+- **Status Updates**: Webhook handling via `/functions/v1/green-invoice-webhook`
+- **Database Integration**: Direct Supabase integration for payment records
 
-### Payment Component Files (Preserved)
-- `src/components/payment/PaymentModal.tsx`
-- `src/components/payment/PaymentButton.tsx`  
-- `src/components/payment/PaymentStatus.tsx`
-- `src/services/greenInvoiceService.ts`
-- `src/types/payment.ts`
-- `supabase/functions/*/` - Edge Functions
+### Payment Component Files (Status)
+- `src/components/payment/PaymentModal.tsx` - ⚠️ Legacy (redirects to external links)
+- `src/components/payment/PaymentButton.tsx` - ✅ Preserved  
+- `src/components/payment/PaymentStatus.tsx` - ✅ Preserved
+- `src/services/greenInvoiceService.ts` - ❌ REMOVED
+- `src/services/paymentService.ts` - ✅ Database-only functions
+- `src/types/payment.ts` - ✅ Preserved
+- `supabase/functions/green-invoice-webhook/` - ✅ Webhook handling only
 
 ### Integration Plans
 Current integrations:
 - ✅ Supabase for database and authentication
-- ✅ Green Invoice API for invoicing (disabled)
+- ✅ External payment links (provider-specific)
 - ✅ WhatsApp contact system
 - ✅ Admin panel for content management
+- ✅ Webhook handling for payment status updates
 
-Planned integrations:
-- 🔄 Payment processor (Tranzila/Cardcom/Stripe)
-- 🔄 Automated invoice generation post-payment
-- 🔄 Email confirmation system
+Future integrations:
+- 🔄 Enhanced payment processor integration
+- 🔄 Automated invoice generation (if needed)
+- 🔄 Email confirmation system enhancements
 
 When working on this codebase, prioritize RTL compatibility, maintain the established design system, and ensure all new components follow the sections-based architecture pattern.
