@@ -31,7 +31,7 @@ const AdminNewsletter: React.FC = () => {
 
   useEffect(() => {
     fetchLeads();
-  }, [filters]);
+  }, [filters, fetchLeads]);
 
   const handleStatusChange = async (id: number, status: ContactedStatus) => {
     try {

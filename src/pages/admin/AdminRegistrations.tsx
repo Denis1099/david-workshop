@@ -31,7 +31,7 @@ const AdminRegistrations: React.FC = () => {
 
   useEffect(() => {
     fetchRegistrations();
-  }, [filters]);
+  }, [filters, fetchRegistrations]);
 
   const handleStatusChange = async (id: number, status: PaymentStatus) => {
     try {

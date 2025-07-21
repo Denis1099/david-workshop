@@ -43,7 +43,7 @@ const AdminSeminars: React.FC = () => {
 
   useEffect(() => {
     fetchSeminars();
-  }, [filters]);
+  }, [filters, fetchSeminars]);
 
   const handleCreateSeminar = async (seminarData: Omit<Seminar, 'id' | 'created_at'>) => {
     try {
