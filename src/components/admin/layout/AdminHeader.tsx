@@ -63,18 +63,10 @@ const AdminHeader: React.FC = () => {
           </nav>
         </div>
 
-        <div className="flex items-center space-x-4">
-          <Link
-            to="/"
-            className="flex items-center gap-2 px-4 py-2 text-gray-600 hover:text-bg-primary border border-gray-300 hover:border-bg-primary rounded-lg transition-colors duration-200"
-          >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-            </svg>
-            <span className="typo-body-small font-medium">חזרה לאתר</span>
-          </Link>
-          <div className="text-left">
-            <p className="typo-body-small text-gray-500">
+        <div className="flex items-center justify-between w-full">
+          <div className="flex-1"></div>
+          <div className="flex-1 flex justify-center">
+            <p className="typo-body-small text-gray-500 whitespace-nowrap">
               {new Date().toLocaleDateString('he-IL', {
                 weekday: 'long',
                 year: 'numeric',
@@ -82,6 +74,17 @@ const AdminHeader: React.FC = () => {
                 day: 'numeric'
               })}
             </p>
+          </div>
+          <div className="flex-1 flex justify-end">
+            <Link
+              to="/"
+              className="inline-flex items-center gap-2 px-4 py-2 text-white bg-cta hover:bg-orange-600 border border-cta hover:border-orange-600 rounded-lg transition-colors duration-200"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+              </svg>
+              <span className="typo-body-small font-medium">חזרה לאתר</span>
+            </Link>
           </div>
         </div>
       </div>

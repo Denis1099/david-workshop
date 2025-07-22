@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import AdminLayout from '../../components/admin/layout/AdminLayout';
 import DataTable from '../../components/admin/common/DataTable';
 import { NewsletterLead, ContactedStatus } from '../../types/admin';
@@ -14,7 +14,7 @@ const AdminNewsletter: React.FC = () => {
     search: ''
   });
 
-  const fetchLeads = async () => {
+  const fetchLeads = useCallback(async () => {
     try {
       setLoading(true);
       const data = await NewsletterService.fetchNewsletterLeads({
@@ -27,11 +27,11 @@ const AdminNewsletter: React.FC = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [filters.status, filters.search]);
 
   useEffect(() => {
     fetchLeads();
-  }, [filters]);
+  }, [fetchLeads]);
 
   const handleStatusChange = async (id: number, status: ContactedStatus) => {
     try {

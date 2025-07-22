@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Seminar } from '../types/seminar';
-import SeminarsService from '../services/seminarsService';
+import { SeminarsService } from '../services/seminarsService';
 import SeminarGrid from '../components/seminars/SeminarGrid';
 import { generateSeminarSlug } from '../utils/seminarUtils';
 

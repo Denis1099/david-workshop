@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import AdminLayout from '../../components/admin/layout/AdminLayout';
 import DataTable from '../../components/admin/common/DataTable';
 import { Registration, PaymentStatus } from '../../types/admin';
@@ -14,7 +14,7 @@ const AdminRegistrations: React.FC = () => {
     search: ''
   });
 
-  const fetchRegistrations = async () => {
+  const fetchRegistrations = useCallback(async () => {
     try {
       setLoading(true);
       const data = await RegistrationsService.fetchRegistrations({
@@ -27,11 +27,11 @@ const AdminRegistrations: React.FC = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [filters.status, filters.search]);
 
   useEffect(() => {
     fetchRegistrations();
-  }, [filters]);
+  }, [fetchRegistrations]);
 
   const handleStatusChange = async (id: number, status: PaymentStatus) => {
     try {

@@ -38,7 +38,7 @@ const Header: React.FC = () => {
   return (
     <header className="bg-navbar-bg border-b sticky top-0 z-50">
       <div className="mx-auto px-4 py-4 max-w-[1200px]">
-        <div className="flex items-center justify-between md:justify-start">
+        <div className="flex items-center relative">
           {/* Mobile Menu Button */}
           <button 
             className="md:hidden text-navbar-text p-2 rounded-lg hover:bg-gray-100 transition-colors"
@@ -62,32 +62,35 @@ const Header: React.FC = () => {
           {/* Logo/Brand - Left side on mobile, right side on desktop in RTL */}
           <Link 
             to="/" 
-            className="flex items-center hover:opacity-80 transition-opacity"
+            className="flex items-center hover:opacity-80 transition-opacity md:ml-auto"
             onClick={closeMobileMenu}
           >
             <img 
               src="/images/logo.svg"
               alt="RELIFT - דוד ליטבינוב"
-              className="h-8 sm:h-10 w-auto"
+              className="h-11 w-auto"
               loading="eager"
             />
           </Link>
 
-          {/* Navigation Menu - True Center - Hidden on Mobile */}
-          <nav className="hidden md:flex items-center space-x-reverse space-x-6 flex-1 justify-center">
-            <Link to="/about-david" className="text-navbar-text hover:text-cta transition-colors font-heebo px-4 py-2 rounded-lg">
+          {/* Navigation Menu - Absolutely Centered - Hidden on Mobile */}
+          <nav className="hidden md:flex items-center gap-12 absolute left-1/2 transform -translate-x-1/2">
+            <button onClick={() => scrollToSection('aboutSeminar')} className="text-navbar-text hover:text-cta transition-colors font-heebo py-2 rounded-lg">
+              מה היא הסדנה?
+            </button>
+            <Link to="/about-david" className="text-navbar-text hover:text-cta transition-colors font-heebo py-2 rounded-lg">
               מי אני?
             </Link>
-            <button onClick={() => scrollToSection('faq')} className="text-navbar-text hover:text-cta transition-colors font-heebo px-4 py-2 rounded-lg">
+            <button onClick={() => scrollToSection('faq')} className="text-navbar-text hover:text-cta transition-colors font-heebo py-2 rounded-lg">
               שאלות נפוצות
             </button>
-            <button onClick={() => scrollToSection('testimonials')} className="text-navbar-text hover:text-cta transition-colors font-heebo px-4 py-2 rounded-lg">
+            <button onClick={() => scrollToSection('testimonials')} className="text-navbar-text hover:text-cta transition-colors font-heebo py-2 rounded-lg">
               מה הם אומרים?
             </button>
           </nav>
 
           {/* CTA Button - Left side in RTL - Hidden on Mobile */}
-          <Link to="/seminars" className="hidden md:block bg-cta hover:bg-yellow-600 text-bg-primary typo-button-cta px-6 py-3 rounded-lg transition-all duration-300 transform hover:scale-105">
+          <Link to="/seminars" className="hidden md:block bg-cta hover:bg-yellow-600 text-bg-primary typo-button-cta px-3 py-2 flex items-center justify-center rounded-lg transition-all duration-300 transform hover:scale-105">
             לבחירת סדנה
           </Link>
         </div>
@@ -99,6 +102,12 @@ const Header: React.FC = () => {
             : 'max-h-0 opacity-0 mt-0 overflow-hidden'
         }`}>
           <nav className="flex flex-col items-center justify-center space-y-4 py-4 border-t border-gray-200">
+            <button 
+              onClick={() => scrollToSection('aboutSeminar')}
+              className="text-navbar-text hover:text-cta transition-colors font-heebo text-center py-2 w-full flex items-center justify-center"
+            >
+              מה היא הסדנה?
+            </button>
             <Link 
               to="/about-david" 
               className="text-navbar-text hover:text-cta transition-colors font-heebo text-center py-2 w-full flex items-center justify-center"

@@ -25,7 +25,10 @@ const SeminarSalesPage: React.FC = () => {
 
   useEffect(() => {
     const fetchSeminar = async () => {
+      console.log('🔍 SeminarSalesPage: Starting to fetch seminar with slug:', slug);
+      
       if (!slug) {
+        console.log('❌ SeminarSalesPage: No slug provided');
         setError('פרמטר URL לא תקין');
         setLoading(false);
         return;
@@ -33,11 +36,15 @@ const SeminarSalesPage: React.FC = () => {
 
       try {
         setLoading(true);
+        console.log('🔗 SeminarSalesPage: Calling getSeminarBySlug with:', slug);
         const seminarData = await SeminarsService.getSeminarBySlug(slug);
+        console.log('📦 SeminarSalesPage: Received seminar data:', seminarData);
         
         if (!seminarData) {
+          console.log('❌ SeminarSalesPage: No seminar found for slug:', slug);
           setError('הסדנה לא נמצאה');
         } else {
+          console.log('✅ SeminarSalesPage: Seminar found successfully:', seminarData.city, seminarData.date);
           setSeminar(seminarData);
           // Update page title and meta description
           document.title = generateSeminarPageTitle(seminarData);
@@ -47,7 +54,7 @@ const SeminarSalesPage: React.FC = () => {
           }
         }
       } catch (err) {
-        console.error('Error fetching seminar:', err);
+        console.error('❌ SeminarSalesPage: Error fetching seminar:', err);
         setError('שגיאה בטעינת פרטי הסדנה');
       } finally {
         setLoading(false);

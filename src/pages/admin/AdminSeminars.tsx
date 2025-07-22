@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
 import AdminLayout from '../../components/admin/layout/AdminLayout';
 import DataTable from '../../components/admin/common/DataTable';
 import SeminarForm from '../../components/admin/seminars/SeminarForm';
 import { Seminar, SeminarStatus } from '../../types/seminar';
 import { TableColumn, FilterOptions } from '../../types/admin';
-import SeminarsService from '../../services/seminarsService';
+import { SeminarsService } from '../../services/seminarsService';
 
 const AdminSeminars: React.FC = () => {
   const location = useLocation();
@@ -27,7 +27,7 @@ const AdminSeminars: React.FC = () => {
     }
   }, [location]);
 
-  const fetchSeminars = async () => {
+  const fetchSeminars = useCallback(async () => {
     try {
       setLoading(true);
       const data = await SeminarsService.fetchAllSeminars({
@@ -39,11 +39,11 @@ const AdminSeminars: React.FC = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [filters.status]);
 
   useEffect(() => {
     fetchSeminars();
-  }, [filters]);
+  }, [fetchSeminars]);
 
   const handleCreateSeminar = async (seminarData: Omit<Seminar, 'id' | 'created_at'>) => {
     try {

@@ -1,0 +1,14 @@
+Options -MultiViews
+RewriteEngine On
+
+# Don't rewrite files that exist (JS, CSS, images, etc.)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Don't rewrite static asset requests
+RewriteCond %{REQUEST_URI} !^/static/
+RewriteCond %{REQUEST_URI} !^/images/
+RewriteCond %{REQUEST_URI} !\.(js|css|png|jpg|jpeg|gif|webp|svg|ico|woff|woff2|ttf|eot|map)$ [NC]
+
+# Only rewrite page routes to index.html for React Router
+RewriteRule . /index.html [QSA,L]

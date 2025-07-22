@@ -141,21 +141,33 @@ export class SeminarsService {
    * Format: city-date (e.g., "tel-aviv-2025-08-15")
    */
   static async getSeminarBySlug(slug: string): Promise<Seminar | null> {
+    console.log('🔍 SeminarsService.getSeminarBySlug: Received slug:', slug);
+    
     // Parse the slug to extract city and date
     const parsed = parseSeminarSlug(slug);
+    console.log('📝 SeminarsService: Parsed slug result:', parsed);
+    
     if (!parsed) {
+      console.log('❌ SeminarsService: Invalid slug format');
       return null; // Invalid slug format
     }
 
     const { city, date } = parsed;
+    console.log('🔍 SeminarsService: Looking for seminar with city:', city, 'date:', date);
 
     // Use mock data if Supabase is not configured
     if (!hasSupabaseConfig) {
+      console.log('📦 SeminarsService: Using mock data (Supabase not configured)');
       await simulateApiDelay(300);
       const allSeminars = [...mockUpcomingSeminars, ...mockPastSeminars];
-      return allSeminars.find(seminar => 
+      console.log('📦 SeminarsService: Available seminars:', allSeminars.map(s => `${s.city} - ${s.date}`));
+      
+      const foundSeminar = allSeminars.find(seminar => 
         seminar.city === city && seminar.date === date
-      ) || null;
+      );
+      
+      console.log('🎯 SeminarsService: Found seminar:', foundSeminar ? `${foundSeminar.city} - ${foundSeminar.date}` : 'None');
+      return foundSeminar || null;
     }
 
     try {
@@ -777,4 +789,3 @@ export class SeminarsService {
   }
 }
 
-export default SeminarsService;
