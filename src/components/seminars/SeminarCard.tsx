@@ -23,9 +23,6 @@ const SeminarCard: React.FC<SeminarCardProps> = ({
     return `${cleanTime(timeStart)}-${cleanTime(timeEnd)}`;
   };
 
-  const formatPrice = (price: number) => {
-    return `₪${price}`;
-  };
 
   const isDisabled = seminar.status === 'cancelled' || 
                    seminar.status === 'sold_out' || 
@@ -36,7 +33,7 @@ const SeminarCard: React.FC<SeminarCardProps> = ({
   return (
     <div className="bg-white rounded-2xl shadow-2xl overflow-hidden transform hover:scale-105 transition-all duration-300" dir="rtl">
       {/* Card Header with Gradient */}
-      <div className="bg-gradient-to-br from-bg-primary to-blue-800 p-6 text-center">
+      <div className="bg-gradient-to-br from-bg-primary to-[#ABCBCA] p-6 text-center">
         <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4">
           <svg className="w-8 h-8 text-bg-primary" fill="currentColor" viewBox="0 0 20 20">
             <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
@@ -107,13 +104,6 @@ const SeminarCard: React.FC<SeminarCardProps> = ({
           </div>
         )}
 
-        {/* Price */}
-        <div className="mb-6">
-          <div className="text-2xl md:text-3xl font-rubik font-bold text-bg-primary">
-            {formatPrice(seminar.price)}
-          </div>
-          <p className="typo-body-small text-gray-500">למשתתף</p>
-        </div>
 
         {/* Action Buttons */}
         <div className="space-y-3">

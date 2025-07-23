@@ -42,10 +42,6 @@ const UpcomingSeminars: React.FC = () => {
     return `${cleanTime(timeStart)}-${cleanTime(timeEnd)}`;
   };
 
-  // Helper function to format price
-  const formatPrice = (price: number) => {
-    return `₪${price}`;
-  };
 
   return (
     <section id="upcoming" 
@@ -102,7 +98,7 @@ const UpcomingSeminars: React.FC = () => {
                                  transform hover:scale-105 transition-all 
                                  duration-300">
                     {/* Card Header with Gradient */}
-                    <div className="bg-gradient-to-br from-bg-primary to-blue-800 p-6 
+                    <div className="bg-gradient-to-br from-bg-primary to-[#ABCBCA] p-6 
                                     text-center">
                       <div className="w-16 h-16 bg-white rounded-full flex 
                                      items-center justify-center mx-auto mb-4">
@@ -180,16 +176,6 @@ const UpcomingSeminars: React.FC = () => {
                         </div>
                       </div>
 
-                      {/* Price */}
-                      <div className="mb-6">
-                        <div className="text-2xl md:text-3xl font-rubik font-bold 
-                                       text-bg-primary">
-                          {formatPrice(seminar.price)}
-                        </div>
-                        <p className="typo-body-small-wrapped text-gray-500">
-                          למשתתף
-                        </p>
-                      </div>
 
                       {/* CTA Button */}
                       <Link 

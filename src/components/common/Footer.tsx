@@ -11,10 +11,17 @@ const Footer: React.FC = () => {
             <h3 className="typo-body-large-wrapped font-bold mb-4 text-cta">
               דוד ליטבינוב
             </h3>
-            <p className="typo-body-small-wrapped text-gray-300">
+            <p className="typo-body-small-wrapped text-gray-300 mb-4">
               ספורטאי אולימפי, שיאן ישראל ומאמן ווייטליפטינג מוביל. 
               מלמד את הטכניקה הנכונה לכל הרמות.
             </p>
+            <div className="flex justify-center">
+              <img 
+                src="/images/logo.svg" 
+                alt="RELIFT לוגו" 
+                className="h-16 w-auto opacity-80"
+              />
+            </div>
           </div>
 
           {/* Quick Links */}
