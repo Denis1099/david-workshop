@@ -1,4 +1,10 @@
 import React from 'react';
+import { 
+  ExclamationTriangleIcon,
+  ChatBubbleLeftRightIcon, 
+  ClockIcon,
+  ArrowPathIcon
+} from '@heroicons/react/24/outline';
 
 const Problem: React.FC = () => {
   const problems = [
@@ -27,11 +33,12 @@ const Problem: React.FC = () => {
           </h2>
         </div>
 
-        {/* Bento Grid Layout */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12 grid-rows-2" dir="rtl">
+        {/* Three Cards in a Row */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12" dir="rtl">
           {/* Card 1: הטכניקה לא עקבית */}
           <div className="bg-gray-800 p-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
-            <h3 className="typo-body-large text-text-primary mb-4 text-center" dangerouslySetInnerHTML={{ __html: problems[0].title }}>
+            <ExclamationTriangleIcon className="w-12 h-12 text-cta mb-4 mx-auto" />
+            <h3 className="typo-body-large text-text-primary mb-4 text-center font-bold" dangerouslySetInnerHTML={{ __html: problems[0].title }}>
             </h3>
             <p className="typo-body-regular text-gray-300 leading-relaxed">
               {problems[0].content}
@@ -40,40 +47,41 @@ const Problem: React.FC = () => {
 
           {/* Card 2: שומע עצות */}
           <div className="bg-gray-800 p-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
-            <h3 className="typo-body-large text-text-primary mb-4 text-center" dangerouslySetInnerHTML={{ __html: problems[1].title }}>
+            <ChatBubbleLeftRightIcon className="w-12 h-12 text-cta mb-4 mx-auto" />
+            <h3 className="typo-body-large text-text-primary mb-4 text-center font-bold" dangerouslySetInnerHTML={{ __html: problems[1].title }}>
             </h3>
             <p className="typo-body-regular text-gray-300 leading-relaxed">
               {problems[1].content}
             </p>
           </div>
 
-          {/* Card 3: משקיע בלי לראות תוצאה - Takes 2 rows but stays 1 column */}
-          <div className="lg:row-span-2 bg-gray-800 p-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 flex flex-col justify-center">
-            <h3 className="typo-body-large text-text-primary mb-4 text-center">
+          {/* Card 3: משקיע בלי לראות תוצאה */}
+          <div className="bg-gray-800 p-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+            <ClockIcon className="w-12 h-12 text-cta mb-4 mx-auto" />
+            <h3 className="typo-body-large text-text-primary mb-4 text-center font-bold">
               {problems[2].title}
             </h3>
             <p className="typo-body-regular text-gray-300 leading-relaxed">
               {problems[2].content}
             </p>
           </div>
-
-          {/* Bottom Large Card - Takes 2 columns and aligned to right */}
-          <div className="lg:col-span-2 lg:col-start-1 bg-gray-800 p-8 rounded-lg shadow-xl">
-            <h3 className="typo-body-large text-text-primary mb-6 text-center">
-              מחזק טעות במקום להתקדם
-            </h3>
-            <p className="typo-body-regular text-text-primary leading-relaxed text-center">
-              אני מרגיש שמשהו לא עובד – אבל ממשיך לעשות אותו שוב ושוב, בלי לשים לב שכל חזרה רק מחזקת את הדפוס השגוי. מה שנראה כמו "עוד ניסיון" בעצם מקבע עמוק יותר את ההרגל הלא נכון. ככל שאני ממשיך – זה נטמע יותר בגוף, הופך לטבע שני, ועם הזמן יהיה הרבה יותר קשה לשנות. במקום להתקרב למטרה – אני מתרחק ממנה צעד אחר צעד.
-            </p>
-          </div>
         </div>
 
-        {/* Solution Text */}
-        <div className="max-w-4xl mx-auto text-center" dir="rtl">
-          <p className="typo-body-large text-text-primary leading-relaxed">
-            בסדנה אני מלמד אותך איך מתאמנים ברמות הגבוהות חושבים, בונים ביטחון, ומשחיזים טכניקה בכל חזרה –
-            לא בעזרת קסם, אלא דרך עקרונות שלא משתנים.
-            אם אתה מרגיש תקוע כבר חודשים הסדנה הזאת תעשה לך סדר.
+        {/* Large Text Between Cards */}
+        <div className="text-center mb-12" dir="rtl">
+          <p className="text-2xl md:text-3xl text-text-primary font-medium leading-relaxed">
+            וכל אלה הובילו אותי להבין שבמקום להתמקד בפתרון אני בעצם יוצר לעצמי לופ
+          </p>
+        </div>
+
+        {/* Bottom Full Width Card */}
+        <div className="bg-gray-800 p-8 rounded-lg shadow-xl mb-12" dir="rtl">
+          <ArrowPathIcon className="w-12 h-12 text-cta mb-4 mx-auto" />
+          <h3 className="typo-body-large text-text-primary mb-6 text-center font-bold">
+            מחזק טעות במקום להתקדם
+          </h3>
+          <p className="typo-body-regular text-text-primary leading-relaxed text-center">
+            אני מרגיש שמשהו לא עובד – אבל ממשיך לעשות אותו שוב ושוב, בלי לשים לב שכל חזרה רק מחזקת את הדפוס השגוי. מה שנראה כמו "עוד ניסיון" בעצם מקבע עמוק יותר את ההרגל הלא נכון. ככל שאני ממשיך – זה נטמע יותר בגוף, הופך לטבע שני, ועם הזמן יהיה הרבה יותר קשה לשנות. במקום להתקרב למטרה – אני מתרחק ממנה צעד אחר צעד.
           </p>
         </div>
       </div>

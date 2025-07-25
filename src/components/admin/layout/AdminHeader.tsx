@@ -1,11 +1,14 @@
+'use client';
+
 import React from 'react';
-import { useLocation, Link } from 'react-router-dom';
+import { usePathname } from 'next/navigation';
+import Link from 'next/link';
 
 const AdminHeader: React.FC = () => {
-  const location = useLocation();
+  const pathname = usePathname();
   
   const getPageTitle = () => {
-    switch (location.pathname) {
+    switch (pathname) {
       case '/admin':
         return 'דשבורד';
       case '/admin/seminars':
@@ -77,7 +80,7 @@ const AdminHeader: React.FC = () => {
           </div>
           <div className="flex-1 flex justify-end">
             <Link
-              to="/"
+              href="/"
               className="inline-flex items-center gap-2 px-4 py-2 text-white bg-cta hover:bg-orange-600 border border-cta hover:border-orange-600 rounded-lg transition-colors duration-200"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

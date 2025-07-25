@@ -1,10 +1,14 @@
+'use client';
+
 import React, { useState } from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import Link from 'next/link';
+import { useRouter, usePathname } from 'next/navigation';
+import Image from 'next/image';
 
 const Header: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const navigate = useNavigate();
-  const location = useLocation();
+  const router = useRouter();
+  const pathname = usePathname();
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -17,9 +21,9 @@ const Header: React.FC = () => {
   const scrollToSection = (sectionId: string) => {
     closeMobileMenu();
     
-    if (location.pathname !== '/') {
+    if (pathname !== '/') {
       // Navigate to home page first, then scroll after navigation
-      navigate('/');
+      router.push('/');
       setTimeout(() => {
         const element = document.getElementById(sectionId);
         if (element) {
@@ -61,15 +65,17 @@ const Header: React.FC = () => {
 
           {/* Logo/Brand - Left side on mobile, right side on desktop in RTL */}
           <Link 
-            to="/" 
+            href="/" 
             className="flex items-center hover:opacity-80 transition-opacity md:ml-auto"
             onClick={closeMobileMenu}
           >
-            <img 
+            <Image
               src="/images/logo.svg"
               alt="RELIFT - דוד ליטבינוב"
+              width={120}
+              height={44}
               className="h-11 w-auto"
-              loading="eager"
+              priority
             />
           </Link>
 
@@ -78,7 +84,7 @@ const Header: React.FC = () => {
             <button onClick={() => scrollToSection('aboutSeminar')} className="text-navbar-text hover:text-cta transition-colors font-heebo py-2 rounded-lg">
               מה היא הסדנה?
             </button>
-            <Link to="/about-david" className="text-navbar-text hover:text-cta transition-colors font-heebo py-2 rounded-lg">
+            <Link href="/about-david" className="text-navbar-text hover:text-cta transition-colors font-heebo py-2 rounded-lg">
               מי אני?
             </Link>
             <button onClick={() => scrollToSection('faq')} className="text-navbar-text hover:text-cta transition-colors font-heebo py-2 rounded-lg">
@@ -90,7 +96,7 @@ const Header: React.FC = () => {
           </nav>
 
           {/* CTA Button - Left side in RTL - Hidden on Mobile */}
-          <Link to="/seminars" className="hidden md:block bg-cta hover:bg-yellow-600 text-bg-primary typo-button-cta px-3 py-2 flex items-center justify-center rounded-lg transition-all duration-300 transform hover:scale-105">
+          <Link href="/seminars" className="hidden md:block bg-cta hover:bg-yellow-600 text-bg-primary typo-button-cta px-3 py-2 flex items-center justify-center rounded-lg transition-all duration-300 transform hover:scale-105">
             לבחירת סדנה
           </Link>
         </div>
@@ -109,7 +115,7 @@ const Header: React.FC = () => {
               מה היא הסדנה?
             </button>
             <Link 
-              to="/about-david" 
+              href="/about-david" 
               className="text-navbar-text hover:text-cta transition-colors font-heebo text-center py-2 w-full flex items-center justify-center"
               onClick={closeMobileMenu}
             >
@@ -130,7 +136,7 @@ const Header: React.FC = () => {
             
             {/* Mobile CTA Button */}
             <Link 
-              to="/seminars"
+              href="/seminars"
               className="bg-cta hover:bg-yellow-600 text-bg-primary typo-button-cta px-6 py-3 rounded-lg transition-all duration-300 mt-4 inline-block"
               onClick={closeMobileMenu}
             >

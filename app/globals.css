@@ -1,0 +1,117 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* RTL Support */
+html {
+  direction: rtl;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-heebo), -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom RTL utilities */
+.text-start {
+  text-align: right;
+}
+
+.text-end {
+  text-align: left;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+/* Mobile Touch Targets - Ensure buttons are large enough for touch */
+@media (max-width: 768px) {
+  button {
+    min-height: 44px; /* Minimum touch target size for accessibility */
+  }
+  
+  a {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+}
+
+/* Mobile Viewport Optimization */
+@media (max-width: 640px) {
+  /* Reduce excessive padding on mobile */
+  .px-4 {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  /* Ensure text doesn't get too small on mobile */
+  .typo-body-small {
+    font-size: 0.9rem;
+  }
+  
+  /* Better mobile spacing for sections */
+  section {
+    scroll-margin-top: 80px; /* Account for sticky header */
+  }
+}
+
+/* Retina Display Support for About David Image */
+.retina-image-container {
+  width: 360px;
+  height: 540px;
+  border-radius: 0.75rem; /* Tailwind's rounded-xl */
+  overflow: hidden;
+  position: relative;
+  margin: 0 auto;
+}
+
+.retina-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  /* Ensures crisp rendering on high-DPI displays */
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+}
+
+/* Responsive behavior for mobile devices */
+@media (max-width: 640px) {
+  .retina-image-container {
+    width: 280px;
+    height: 420px;
+    max-width: 90vw;
+    height: auto;
+    aspect-ratio: 2/3;
+  }
+}
+
+@media (max-width: 480px) {
+  .retina-image-container {
+    width: 240px;
+    height: 360px;
+    max-width: 85vw;
+  }
+}
+
+/* High-DPI screen optimizations */
+@media (-webkit-min-device-pixel-ratio: 2),
+       (min-resolution: 192dpi),
+       (min-resolution: 2dppx) {
+  .retina-image {
+    /* Additional sharpening for retina displays */
+    image-rendering: -webkit-optimize-contrast;
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -ms-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
+}

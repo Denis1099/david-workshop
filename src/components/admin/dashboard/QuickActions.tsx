@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { AdminService } from '../../../services/adminService';
 
 const QuickActions: React.FC = () => {
@@ -111,7 +111,7 @@ const QuickActions: React.FC = () => {
           return (
             <Link
               key={action.title}
-              to={action.href!}
+              href={action.href!}
               className="block p-4 rounded-lg border border-gray-200 hover:border-gray-300 hover:shadow-md transition-all duration-200"
             >
               {content}

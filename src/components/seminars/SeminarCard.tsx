@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { SeminarCardProps } from '../../types/seminar';
 import StatusBadge from './StatusBadge';
 import { generateSeminarSlug } from '../../utils/seminarUtils';
@@ -144,7 +144,7 @@ const SeminarCard: React.FC<SeminarCardProps> = ({
 
           {/* Secondary CTA - Details */}
           <Link
-            to={`/seminars/${seminarSlug}`}
+            href={`/seminars/${seminarSlug}`}
             className="w-full bg-transparent border-2 border-gray-300 text-gray-700 hover:border-bg-primary hover:text-bg-primary typo-button-regular py-3 rounded-lg transition-all duration-300 block text-center"
           >
             פרטים מלאים

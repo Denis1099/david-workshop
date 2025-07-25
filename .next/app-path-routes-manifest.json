@@ -1,0 +1,14 @@
+{
+  "/_not-found/page": "/_not-found",
+  "/about-david/page": "/about-david",
+  "/admin/login/page": "/admin/login",
+  "/admin/newsletter/page": "/admin/newsletter",
+  "/admin/page": "/admin",
+  "/admin/registrations/page": "/admin/registrations",
+  "/admin/seminars/page": "/admin/seminars",
+  "/admin/settings/page": "/admin/settings",
+  "/faq/page": "/faq",
+  "/page": "/",
+  "/seminars/[slug]/page": "/seminars/[slug]",
+  "/seminars/page": "/seminars"
+}

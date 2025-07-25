@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 
 const ContactFAQ: React.FC = () => {
   const handleWhatsAppClick = () => {
@@ -25,7 +25,7 @@ const ContactFAQ: React.FC = () => {
                         items-center">
           {/* Secondary CTA - FAQ Page */}
           <Link 
-            to="/faq" 
+            href="/faq" 
             className="bg-transparent border-2 border-text-primary 
                       text-text-primary hover:bg-text-primary 
                       hover:text-bg-primary typo-button-regular px-8 py-4 

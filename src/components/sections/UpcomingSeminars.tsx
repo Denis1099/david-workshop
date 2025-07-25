@@ -1,5 +1,7 @@
+'use client';
+
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { SeminarsService } from '../../services/seminarsService';
 import { Seminar } from '../../types/seminar';
 
@@ -179,7 +181,7 @@ const UpcomingSeminars: React.FC = () => {
 
                       {/* CTA Button */}
                       <Link 
-                        to="/seminars"
+                        href="/seminars"
                         className="w-full bg-cta hover:bg-yellow-600 
                                   text-bg-primary typo-button-cta py-3 rounded-lg 
                                   transition-colors block text-center"
@@ -197,7 +199,7 @@ const UpcomingSeminars: React.FC = () => {
         {/* Bottom CTA */}
         <div className="text-center">
           <Link 
-            to="/seminars"
+            href="/seminars"
             className="bg-cta hover:bg-yellow-600 text-bg-primary 
                       typo-button-cta px-8 py-4 rounded-lg 
                       transition-all duration-300 transform hover:scale-105 

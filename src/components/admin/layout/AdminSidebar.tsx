@@ -1,9 +1,12 @@
+'use client';
+
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { AdminService } from '../../../services/adminService';
 
 const AdminSidebar: React.FC = () => {
-  const location = useLocation();
+  const pathname = usePathname();
   const currentUser = AdminService.getCurrentUser();
 
   const navigation = [
@@ -32,11 +35,11 @@ const AdminSidebar: React.FC = () => {
 
       <nav className="flex-1 p-4 space-y-2">
         {navigation.map((item) => {
-          const isActive = location.pathname === item.href;
+          const isActive = pathname === item.href;
           return (
             <Link
               key={item.name}
-              to={item.href}
+              href={item.href}
               className={`
                 flex items-center px-4 py-3 rounded-lg typo-body-regular transition-colors
                 ${isActive

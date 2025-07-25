@@ -1,5 +1,7 @@
+'use client';
+
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 
 const AboutDavid: React.FC = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -78,7 +80,7 @@ const AboutDavid: React.FC = () => {
 
           {/* CTA Button */}
           <div className="text-center">
-            <Link to="/about-david" className="bg-cta hover:bg-yellow-600 text-bg-primary typo-button-regular px-8 py-4 rounded-lg transition-all duration-300 transform hover:scale-105 inline-block">
+            <Link href="/about-david" className="bg-cta hover:bg-yellow-600 text-bg-primary typo-button-regular px-8 py-4 rounded-lg transition-all duration-300 transform hover:scale-105 inline-block">
               לסיפור המלא שלי
             </Link>
           </div>
@@ -136,7 +138,7 @@ const AboutDavid: React.FC = () => {
 
 
             {/* CTA Button */}
-            <Link to="/about-david" className="bg-cta hover:bg-yellow-600 text-bg-primary typo-button-regular px-8 py-4 rounded-lg transition-all duration-300 transform hover:scale-105 inline-block">
+            <Link href="/about-david" className="bg-cta hover:bg-yellow-600 text-bg-primary typo-button-regular px-8 py-4 rounded-lg transition-all duration-300 transform hover:scale-105 inline-block">
               לסיפור המלא שלי
             </Link>
           </div>

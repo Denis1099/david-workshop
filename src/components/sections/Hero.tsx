@@ -1,15 +1,17 @@
+'use client';
+
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
 
 const Hero: React.FC = () => {
-  const navigate = useNavigate();
+  const router = useRouter();
   
   const handleWhatsAppClick = () => {
     window.open('https://wa.link/mfzmps', '_blank');
   };
   
   const handleSeminarsClick = () => {
-    navigate('/seminars');
+    router.push('/seminars');
   };
 
   return (
